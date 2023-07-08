@@ -19,7 +19,8 @@ public class Primes {
      * @return True iff. the integer is prime
      */
     public static boolean isPrime(int n) {
-        // Corner cases
+        // Corner cases//特殊情况
+        //1不算质数
         if (n <= 1 || n == 4) return false;
         if (n <= 3) return true;
 

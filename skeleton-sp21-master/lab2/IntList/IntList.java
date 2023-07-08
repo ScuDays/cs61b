@@ -10,6 +10,7 @@ public class IntList {
     }
 
     /** Return the size of the list using... recursion! */
+    //递归实现size（）
     public int size() {
         if (rest == null) {
             return 1;
@@ -17,7 +18,7 @@ public class IntList {
         return 1 + this.rest.size();
     }
 
-    /** Return the size of the list using no recursion! */
+    /** Return the size of the list using no recursion（递归）! */
     public int iterativeSize() {
         IntList p = this;
         int totalSize = 0;
@@ -33,6 +34,7 @@ public class IntList {
         if (i == 0) {
             return first;
         }
+        //通过这个rest顺着链表去找
         return rest.get(i - 1);
     }
 
@@ -42,6 +44,9 @@ public class IntList {
             // Converts an Integer to a String!
             return String.valueOf(first);
         } else {
+            //全都是用递归，太dio了
+            //这也能递归？
+            //nb！
             return first + " -> " + rest.toString();
         }
     }
@@ -57,6 +62,8 @@ public class IntList {
      * You can pass in any number of arguments to IntList.of and it will work:
      * IntList mySmallerList = IntList.of(1, 4, 9);
      */
+
+    //int ...argList 可以看作 int [] argList
     public static IntList of(int ...argList) {
         if (argList.length == 0)
             return null;
