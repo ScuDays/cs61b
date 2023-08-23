@@ -112,9 +112,10 @@ public class LinkedListDeque<T> {
 
     private IntNode sentinel;
     private IntNode sentinelLast;
+    private IntNode getHelp;
     private int cache;
 
-    public class IntNode{
+    private class IntNode{
         IntNode last;
         T own;
         IntNode next;
@@ -134,8 +135,9 @@ public class LinkedListDeque<T> {
 
 
     public  LinkedListDeque(){
-        sentinel =new IntNode();
-        sentinelLast =new IntNode();
+        sentinel = new IntNode();
+        sentinelLast = new IntNode();
+        getHelp = new IntNode();
 
         sentinel.next=sentinelLast;
         sentinelLast.last=sentinel;
@@ -226,6 +228,34 @@ public class LinkedListDeque<T> {
             System.out.println(finalNode.own);
             cache1--;
         }
+    }
+
+    public T get(int number){
+
+        if(number>this.cache)throw new IllegalArgumentException("the number didn't exist");
+        IntNode ReturnElement=sentinel;
+        for(int i=0;i<number;i++) {
+            ReturnElement=ReturnElement.next;
+        }
+        return  ReturnElement.own;
+    }
+    public T getRecursive(int number){
+        if(getHelp.next == null){
+           getHelp = new IntNode();
+           getHelp.next = sentinel.next;
+        }
+
+        if(number==1){
+            T a = getHelp.next.own;
+            getHelp.next = null;
+            return a;
+        }
+        else {
+           this.getHelp.next=this.getHelp.next.next;
+           number--;
+           return this.getRecursive(number);
+        }
+
     }
 
 
