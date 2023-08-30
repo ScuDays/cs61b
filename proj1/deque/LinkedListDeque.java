@@ -108,12 +108,16 @@ public class LinkedListDeque<T> {
 
 package deque;
 
-public class LinkedListDeque<T> {
+import java.util.Iterator;
+
+public class LinkedListDeque<T> implements Iterable<T>{
 
     private IntNode sentinel;
     private IntNode sentinelLast;
     private IntNode getHelp;
+    private IntNode IteratorHelp;
     private int cache;
+    private int wiz;
 
     private class IntNode{
         IntNode last;
@@ -132,13 +136,43 @@ public class LinkedListDeque<T> {
         }
     }
 
+    //实现Iterable接口的方法
+    @Override
+    public Iterator<T> iterator() {
+
+        return new LinkedListDequeIterator();
+    }
+    private class LinkedListDequeIterator implements Iterator<T>{
+
+        public LinkedListDequeIterator(){
+            IteratorHelp= new IntNode();
+            IteratorHelp.next=sentinel.next;
+        }
+        @Override
+        public boolean hasNext() {
+            return wiz<cache;
+        }
+
+        @Override
+        public T next() {
+            if(hasNext()==false){
+                throw new IllegalArgumentException("there is not an element");
+            }
+            else{
+                wiz++;
+                T a=IteratorHelp.next.own;
+                IteratorHelp.next=IteratorHelp.next.next;
+                return a;
+            }
+        }
+    }
+
 
 
     public  LinkedListDeque(){
         sentinel = new IntNode();
         sentinelLast = new IntNode();
         getHelp = new IntNode();
-
         sentinel.next=sentinelLast;
         sentinelLast.last=sentinel;
 
@@ -255,6 +289,17 @@ public class LinkedListDeque<T> {
            number--;
            return this.getRecursive(number);
         }
+
+    }
+
+    public boolean equals(Object a){
+        if(a.getClass()!=this.getClass())return false;
+        LinkedListDeque<T> b=(LinkedListDeque<T>)a;
+        if(b.size()!=this.cache)return false;
+        for(int i=0;i<this.size();i++){
+            if(b.get(i)!=this.get(i))return false;
+        }
+        return true;
 
     }
 

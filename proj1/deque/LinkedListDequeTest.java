@@ -1,6 +1,10 @@
 package deque;
 
+import jh61b.junit.In;
 import org.junit.Test;
+
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
@@ -141,5 +145,37 @@ import static org.junit.Assert.assertEquals;
         String b=a.get(2);
         assertEquals("B",b);
 
+    }
+    @Test
+    public void ItertorTest(){
+
+        LinkedListDeque<Integer> a=new LinkedListDeque<>();
+        a.addLast(1);
+        a.addLast(2);
+        a.addLast(3);
+        /*Iterator<Integer> b= a.iterator();
+        while(b.hasNext()){
+            System.out.println(b.next());
+        }*/
+        for(int i:a){
+            System.out.println(i);
+        }
+    }
+    @Test
+    public void EqualsTest(){
+        LinkedListDeque<Integer> a=new LinkedListDeque<>();
+        a.addLast(1);
+        a.addLast(2);
+        a.addLast(3);
+        LinkedListDeque<Integer> b=new LinkedListDeque<>();
+        b.addLast(2);
+        b.addLast(3);
+        LinkedListDeque<Integer> c=new LinkedListDeque<>();
+        c.addLast(1);
+        c.addLast(2);
+        c.addLast(3);
+
+        System.out.println(a.equals(b));
+        System.out.println(a.equals(c));
     }
 }
