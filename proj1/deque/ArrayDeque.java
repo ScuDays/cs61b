@@ -68,29 +68,30 @@ public class ArrayDeque<T> implements Iterable{
 
     public T removeFirst(){
 
-        if(cache==0)throw new IllegalArgumentException("this is not element in this ArrayDeque");
+        if(cache==0) return null;
         else{
             T returnElement = (T)arr[0];
-            cache--;
             Object[] arr2=new Object[size];
-            System.arraycopy(arr, 1, arr2, 0, cache);
+            System.arraycopy(arr, 1, arr2, 0, cache-1);
             arr=arr2;
+            cache--;
             return  returnElement;
         }
     }
 
     public T removeLast(){
-        if(cache==0)throw new IllegalArgumentException("this is not element in this ArrayDeque");
+        if(cache==0) return null;
         else{
             T returnElement = (T)arr[cache-1];
-            cache--;
             arr[cache-1]=null;
+            cache--;
             return returnElement;
         }
     }
 
     public T get(int index){
-        return (T)arr[index];
+
+        return (T)arr[index-1];
     }
 
     @Override
