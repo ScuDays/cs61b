@@ -90,7 +90,7 @@ public class ArrayDeque<T> implements Iterable{
     }
 
     public T get(int index){
-
+        if(index <= 0) return null;
         return (T)arr[index-1];
     }
 
