@@ -155,7 +155,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
 
         @Override
         public T next() {
-            if(hasNext()==false){
+            if(hasNext() == false){
                 throw new IllegalArgumentException("there is not an element");
             }
             else{
@@ -183,7 +183,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
     public void addFirst(T i) {
         IntNode a=new IntNode();
         a.own=i;
-        if(cache==0){
+        if(cache == 0){
             sentinel.next=a;
             a.last=sentinel;
             a.next=sentinel;
@@ -266,9 +266,9 @@ public class LinkedListDeque<T> implements Iterable<T>{
 
     public T get(int number){
 
-        if(number>this.cache)throw new IllegalArgumentException("the number didn't exist");
-        IntNode ReturnElement=sentinel;
-        for(int i=0;i<number;i++) {
+        if(number > this.cache)throw new IllegalArgumentException("the number didn't exist");
+        IntNode ReturnElement = sentinel;
+        for(int i = 0;i < number;i++) {
             ReturnElement=ReturnElement.next;
         }
         return  ReturnElement.own;
@@ -285,7 +285,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
             return a;
         }
         else {
-           this.getHelp.next=this.getHelp.next.next;
+           this.getHelp.next = this.getHelp.next.next;
            number--;
            return this.getRecursive(number);
         }
@@ -294,10 +294,10 @@ public class LinkedListDeque<T> implements Iterable<T>{
 
     public boolean equals(Object a){
         if(a.getClass()!=this.getClass())return false;
-        LinkedListDeque<T> b=(LinkedListDeque<T>)a;
-        if(b.size()!=this.cache)return false;
-        for(int i=0;i<this.size();i++){
-            if(b.get(i)!=this.get(i))return false;
+        LinkedListDeque<T> b = (LinkedListDeque<T>)a;
+        if(b.size() != this.cache)return false;
+        for(int i = 0;i < this.size() ; i++){
+            if(b.get(i) != this.get(i)) return false;
         }
         return true;
 

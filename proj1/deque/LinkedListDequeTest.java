@@ -149,7 +149,7 @@ import static org.junit.Assert.assertEquals;
     @Test
     public void ItertorTest(){
 
-        LinkedListDeque<Integer> a=new LinkedListDeque<>();
+        LinkedListDeque<Integer> a=new LinkedListDeque<Integer>();
         a.addLast(1);
         a.addLast(2);
         a.addLast(3);
