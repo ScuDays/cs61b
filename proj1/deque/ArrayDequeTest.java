@@ -2,6 +2,7 @@ package deque;
 
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
@@ -99,6 +100,21 @@ public class ArrayDequeTest {
         int a = 2;
         int b = arr.get(1);
         assertEquals(a,b);
+    }
+
+    @Test
+    public void IteratorTest(){
+        ArrayDeque<Integer> arr = new ArrayDeque<Integer>();
+        arr.addFirst(4);
+        arr.addFirst(3);
+        arr.addFirst(2);
+        arr.addFirst(1);
+
+        Iterator<Integer> ite = arr.iterator();
+
+       // while(ite.hasNext()) System.out.println(ite.next());
+
+        for(Object b:arr) System.out.println(b);
     }
 
 

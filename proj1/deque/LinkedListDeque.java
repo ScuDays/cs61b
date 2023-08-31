@@ -184,17 +184,17 @@ public class LinkedListDeque<T> implements Iterable<T>{
         IntNode a=new IntNode();
         a.own=i;
         if(cache == 0){
-            sentinel.next=a;
-            a.last=sentinel;
-            a.next=sentinel;
-            sentinelLast.last=a;
+            sentinel.next = a;
+            a.last = sentinel;
+            a.next = sentinel;
+            sentinelLast.last = a;
         }
         else{
-            IntNode b=sentinel.next;
-            sentinel.next=a;
-            a.last=sentinel;
-            a.next=b;
-            b.last=a;
+            IntNode b = sentinel.next;
+            sentinel.next = a;
+            a.last = sentinel;
+            a.next = b;
+            b.last = a;
         }
 
         cache++;
@@ -205,9 +205,9 @@ public class LinkedListDeque<T> implements Iterable<T>{
         IntNode a;
         if (cache!=0) {
             a = sentinel.next.next;
-            T Return =sentinel.next.own;
-            sentinel.next=a;
-            a.last=sentinel;
+            T Return = sentinel.next.own;
+            sentinel.next = a;
+            a.last = sentinel;
             cache--;
             return  Return;
         }
@@ -294,7 +294,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
 
     public boolean equals(Object a){
         if(a.getClass()!=this.getClass())return false;
-        LinkedListDeque<T> b = (LinkedListDeque<T>)a;
+        LinkedListDeque<T> b = (LinkedListDeque <T>)a;
         if(b.size() != this.cache)return false;
         for(int i = 0;i < this.size() ; i++){
             if(b.get(i) != this.get(i)) return false;

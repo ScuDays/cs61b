@@ -1,8 +1,9 @@
 package deque;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Iterable{
 
 
     private int size;
@@ -50,34 +51,69 @@ public class ArrayDeque<T> {
             arr[cache-1]=item;
         }
     }
+
     public boolean isEmpty(){
         return cache==0;
     }
+
     public int size(){
         return this.cache;
     }
+
     public void printDeque(){
         for(int i=0;i<cache;i++){
             System.out.print((T)arr[i]+" ");
         }
     }
-    public void removeFirst(){
+
+    public T removeFirst(){
+
         if(cache==0)throw new IllegalArgumentException("this is not element in this ArrayDeque");
         else{
+            T returnElement = (T)arr[0];
             cache--;
             Object[] arr2=new Object[size];
             System.arraycopy(arr, 1, arr2, 0, cache);
             arr=arr2;
+            return  returnElement;
         }
     }
-    public void removeLast(){
+
+    public T removeLast(){
         if(cache==0)throw new IllegalArgumentException("this is not element in this ArrayDeque");
         else{
+            T returnElement = (T)arr[cache-1];
+            cache--;
             arr[cache-1]=null;
+            return returnElement;
         }
     }
+
     public T get(int index){
         return (T)arr[index];
     }
 
+    @Override
+    public Iterator iterator() {
+
+        return new ArrayDequeIterator();
+    }
+    public class ArrayDequeIterator implements Iterator<T>{
+        int wiz=0;
+
+        @Override
+        public boolean hasNext() {
+            if(wiz<cache) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public T next() {
+            wiz++;
+
+            return (T)arr[wiz-1];
+        }
+    }
 }
