@@ -1,3 +1,6 @@
+
+/** the first version which is not a circular array. */
+/*
 package deque;
 
 import java.util.Arrays;
@@ -70,6 +73,14 @@ public class ArrayDeque<T> implements Iterable{
 
         if(cache==0) return null;
         else{
+            if(size >= 16 && ( (double) size /cache > 0.25)){
+                T returnElement = (T)arr[0];
+                Object[] arr2=new Object[cache];
+                System.arraycopy(arr, 1, arr2, 0, cache-1);
+                arr=arr2;
+                cache--;
+                return  returnElement;
+            }
             T returnElement = (T)arr[0];
             Object[] arr2=new Object[size];
             System.arraycopy(arr, 1, arr2, 0, cache-1);
@@ -82,6 +93,14 @@ public class ArrayDeque<T> implements Iterable{
     public T removeLast(){
         if(cache==0) return null;
         else{
+            if(size >= 16 && ( (double) size /cache > 0.25)){
+            T returnElement = (T)arr[cache-1];
+            Object[] arr2=new Object[cache];
+            System.arraycopy(arr, 0, arr2, 0, cache-1);
+            arr=arr2;
+            cache--;
+            return returnElement;
+        }
             T returnElement = (T)arr[cache-1];
             arr[cache-1]=null;
             cache--;
@@ -99,7 +118,7 @@ public class ArrayDeque<T> implements Iterable{
 
         return new ArrayDequeIterator();
     }
-    public class ArrayDequeIterator implements Iterator<T>{
+    private class ArrayDequeIterator implements Iterator<T>{
         int wiz=0;
 
         @Override
@@ -117,4 +136,145 @@ public class ArrayDeque<T> implements Iterable{
             return (T)arr[wiz-1];
         }
     }
+}
+*/
+
+
+/** the second version which is circular array
+ */
+
+
+package  deque;
+
+public class ArrayDeque<T>{
+    private int first;
+    private int last;
+    private Object[] arr;
+    private int cache;
+    private int size;
+
+    public ArrayDeque()
+    {
+
+        cache = 0;
+        first = 4;
+        last = 4;
+        arr = new Object[8];
+        size = 8;
+    }
+
+    public void reSize(){
+        if(first == 0){
+            int sizeturn = size * 2;
+            Object[] arrCopy = new Object[sizeturn];
+            System.arraycopy(arr,0,arrCopy,0,cache);
+            arr = arrCopy;
+            size *= 2;
+        }
+        else {
+            int sizeturn = size * 2;
+            Object[] arrCopy = new Object[sizeturn];
+            System.arraycopy(arr,0,arrCopy,0,last + 1);
+            System.arraycopy(arr,first,arrCopy,last + size + 1 ,cache - first);
+            first = first + size;
+            size *= 2;
+        }
+
+
+
+    }
+    public void addFirst(T item)
+    {
+       if(cache == size){
+          this.reSize();
+       }
+       if(arr [first] == null){
+           arr [first] = item;
+       }
+       else if(first == 0){
+           first = size -1;
+           arr[first] = item;
+       }
+       else{
+           first = first - 1;
+           arr[first] = item;
+       }
+       cache ++;
+
+    }
+    public void addLast(T item)
+    {
+        if(cache == size) {
+            this.reSize();
+        }
+        if(arr[last] == null){
+            arr[last] = item;
+        }
+         else if(last == size - 1){
+             last = 0;
+             arr[last] = item;
+         }
+         else{
+             last = last + 1;
+             arr[last] = item;
+         }
+         cache ++;
+    }
+    public boolean isEmpty(){
+        return cache == 0;
+    }
+    public int size(){
+        return cache;
+    }
+    public void printDeque(){
+        if(first < size){
+            for(int i = first ; i <= last ; i ++){
+                System.out.println(arr[i]);
+            }
+        }
+        else{
+            for(int i = first ; i<= size-1 ; i++ ) System.out.println(arr[i]);
+            for(int i = 0; i <= last ; i++ ) System.out.println(arr[i]);
+        }
+    }
+    public T removeFirst(){
+        T a = (T) arr[first];
+        if(first == size - 1){
+            arr[first] = null;
+            first =0;
+        }
+        else{
+            arr[first] =null;
+            first ++;
+        }
+        cache --;
+        return a;
+    }
+
+    public T removeLast(){
+        T a = (T) arr[last];
+        if(last == 0){
+            arr[last] = null;
+            last = size - 1;
+        }
+        else{
+            arr[last] =null;
+            last --;
+        }
+        cache --;
+        return a;
+    }
+    public T get(int index){
+        if(index > cache)return null;
+        if(first < last)return (T) arr[first + index - 1];
+        else if(size - first >= index)
+        {
+            return (T) arr[first + index - 1];
+        }
+        else return (T) arr[index - (size - first) - 1];
+    }
+
+
+
+
 }
