@@ -146,12 +146,18 @@ public class ArrayDeque<T> implements Iterable{
 
 package  deque;
 
-public class ArrayDeque<T>{
+import java.lang.reflect.Array;
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Iterable
+{
     private int first;
     private int last;
     private Object[] arr;
     private int cache;
     private int size;
+    private int wiz;
+
 
     public ArrayDeque()
     {
@@ -275,6 +281,33 @@ public class ArrayDeque<T>{
     }
 
 
+    @Override
+    public Iterator iterator() {
+        return new ArrayDequeIterator();
+    }
+    public class ArrayDequeIterator implements Iterator{
+        public ArrayDequeIterator(){
+            wiz = first;
+        }
 
+        @Override
+        public boolean hasNext() {
+                if(wiz == last+1 && wiz +1 != first)return false;
+                else return true;
+        }
 
+        @Override
+        public T next() {
+            if(wiz == size-1){
+                wiz = 0 ;
+                T a = (T) arr[size - 1];
+                return a;
+            }
+            else {
+                wiz ++;
+                T a =(T) arr[wiz - 1];
+                return a;
+            }
+        }
+    }
 }

@@ -129,6 +129,8 @@ package deque;
  import org.junit.Test;
 
  import java.lang.reflect.Array;
+ import java.util.Iterator;
+
  import org.junit.Test;
 
  import static org.junit.Assert.assertEquals;
@@ -242,6 +244,21 @@ package deque;
          int b = arr.get(2);
          assertEquals(a,b);
      }
+
+     @Test
+     public void IteratorTest(){
+         ArrayDeque<Integer> arr=new ArrayDeque<Integer>();
+         arr.addLast(1);
+         arr.addLast(2);
+         arr.addLast(3);
+         Iterator<Integer>  arrIte = arr.iterator();
+         while(arrIte.hasNext()) System.out.println(arrIte.next());
+
+         for(Object i:arr) System.out.println(i);
+
+     }
+
+
 
 
 
