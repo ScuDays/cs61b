@@ -244,6 +244,10 @@ public class ArrayDeque<T> implements Iterable
         }
     }
     public T removeFirst(){
+
+        if(cache == 0){
+            return null;
+        }
         T a = (T) arr[first];
         if(first == size - 1){
             arr[first] = null;
@@ -258,6 +262,10 @@ public class ArrayDeque<T> implements Iterable
     }
 
     public T removeLast(){
+
+        if(cache == 0){
+            return null;
+        }
         T a = (T) arr[last];
         if(last == 0){
             arr[last] = null;
@@ -271,6 +279,7 @@ public class ArrayDeque<T> implements Iterable
         return a;
     }
     public T get(int index){
+        index ++;
         if(index > cache)return null;
         if(first < last)return (T) arr[first + index - 1];
         else if(size - first >= index)

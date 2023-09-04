@@ -147,7 +147,7 @@ package deque;
         arr.addFirst(6);
         arr.addFirst(7);
         int a = 7;
-        int b = arr.get(1);
+        int b = arr.get(0);
         assertEquals(a,b);
 
 
@@ -155,7 +155,7 @@ package deque;
         arr1.addFirst(1);
         arr1.addFirst(2);
         int a1 = 2;
-        int b1 = arr1.get(1);
+        int b1 = arr1.get(0);
         assertEquals(a1,b1);
     }
 
@@ -166,7 +166,7 @@ package deque;
          arr.addLast(1);
          arr.addLast(2);
          arr.addLast(3);
-         int b = arr.get(3);
+         int b = arr.get(2);
          int c = 3;
          assertEquals(b,c);
 
@@ -179,7 +179,7 @@ package deque;
          arr1.addLast(6);
          arr1.addLast(7);
          int a1 = 7;
-         int b1 = arr1.get(7);
+         int b1 = arr1.get(6);
          assertEquals(a1,b1);
 
 
@@ -229,7 +229,7 @@ package deque;
          arr.addFirst(2);
          arr.removeFirst();
          int a = 1;
-         int b = arr.get(1);
+         int b = arr.get(0);
          assertEquals(a,b);
      }
 
@@ -241,7 +241,7 @@ package deque;
          arr.addLast(3);
          arr.removeLast();
          int a = 2;
-         int b = arr.get(2);
+         int b = arr.get(1);
          assertEquals(a,b);
      }
 
