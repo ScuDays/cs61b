@@ -151,12 +151,12 @@ import java.util.Iterator;
 
 public class ArrayDeque<T> implements Iterable
 {
-    private int first;
-    private int last;
-    private Object[] arr;
-    private int cache;
-    private int size;
-    private int wiz;
+     int first;
+     int last;
+     Object[] arr;
+    int cache;
+    int size;
+    int wiz;
 
 
     public ArrayDeque()
@@ -225,9 +225,6 @@ public class ArrayDeque<T> implements Iterable
              arr[last] = item;
          }
          cache ++;
-    }
-    public boolean isEmpty(){
-        return cache == 0;
     }
     public int size(){
         return cache;
@@ -319,4 +316,5 @@ public class ArrayDeque<T> implements Iterable
             }
         }
     }
+
 }

@@ -258,7 +258,13 @@ package deque;
 
      }
 
-
+     @Test
+     public  void atest(){
+         ArrayDeque<Integer>  arr = new ArrayDeque<>();
+         arr.a(arr);
+         Object b = new Object();
+         System.out.println(b.getClass());
+     }
 
 
 

@@ -216,10 +216,10 @@ public class LinkedListDeque<T> implements Iterable<T>{
 
     }
 
-    public boolean isEmpty() {
+  /*  public boolean isEmpty() {
         if(cache==0)return true;
         else return false;
-    }
+    }*/
 
     public void addLast(T i) {
         IntNode add=new IntNode();
