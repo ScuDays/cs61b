@@ -9,7 +9,7 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>  {
     private K key;
     private V value;
     private BSTMap<K,V> left;
-private BSTMap<K,V> right;
+    private BSTMap<K,V> right;
     private int cache;
 
     public BSTMap(){
@@ -80,20 +80,25 @@ private BSTMap<K,V> right;
 
     }
 
-   public BSTMap insert(BSTMap bst, K key, V value){
+   private BSTMap insert(BSTMap bst, K key, V value) {
 
-        if(bst == null)return new BSTMap(key,value);
-       if(bst.key == null) {
+       if (bst == null) return new BSTMap(key, value);
+       if (bst.key == null) {
            bst.key = key;
            bst.value = value;
-       }
-       else if(bst.key.compareTo(key) > 0)
-           bst.left = insert(bst.left,key,value);
-       else if(bst.key.compareTo(key) < 0)
-           bst.right = insert(bst.right,key,value);
+       } else if (bst.key.compareTo(key) > 0)
+           bst.left = insert(bst.left, key, value);
+       else if (bst.key.compareTo(key) < 0)
+           bst.right = insert(bst.right, key, value);
        return bst;
-    }
-
+   }
+       public void printInOrder(){
+           // if(this.left == null && this.right == null)  return;;
+            if(this.left != null) this.left.printInOrder();
+            else if(this.right != null)this.right.printInOrder();
+            System.out.println(this.key);
+            return;
+       }
     @Override
     public Set<K> keySet() {
         throw new UnsupportedOperationException();
