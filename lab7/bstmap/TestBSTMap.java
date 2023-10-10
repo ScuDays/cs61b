@@ -89,8 +89,8 @@ public class TestBSTMap {
         b.put("hi", null);
         assertTrue(b.containsKey("hi"));
     }
-    //@Test
-   /* public void printInOrderTest(){
+    @Test
+    public void printInOrderTest(){
         BSTMap<String, Integer> b = new BSTMap<String, Integer>();
         b.put("a", 1);
         b.put("abc", 3);
@@ -100,6 +100,6 @@ public class TestBSTMap {
 
        // System.out.println(b.get("abcd"));
         b.printInOrder();
-    }*/
+    }
 
 }
