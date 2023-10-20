@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.Comparator;
 
+import static edu.princeton.cs.algs4.StdIn.isEmpty;
+
 public class MaxArrayDeque<T> extends ArrayDeque<T>{
 
     private final Comparator<T> comparator;

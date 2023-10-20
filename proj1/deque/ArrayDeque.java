@@ -151,9 +151,9 @@ import java.util.Iterator;
 
 public class ArrayDeque<T> implements Iterable
 {
-     int first;
-     int last;
-     Object[] arr;
+    int first;
+    int last;
+    Object[] arr;
     int cache;
     int size;
     int wiz;
@@ -191,21 +191,21 @@ public class ArrayDeque<T> implements Iterable
     }
     public void addFirst(T item)
     {
-       if(cache == size){
-          this.reSize();
-       }
-       if(arr [first] == null){
-           arr [first] = item;
-       }
-       else if(first == 0){
-           first = size -1;
-           arr[first] = item;
-       }
-       else{
-           first = first - 1;
-           arr[first] = item;
-       }
-       cache ++;
+        if(cache == size){
+            this.reSize();
+        }
+        if(arr [first] == null){
+            arr [first] = item;
+        }
+        else if(first == 0){
+            first = size -1;
+            arr[first] = item;
+        }
+        else{
+            first = first - 1;
+            arr[first] = item;
+        }
+        cache ++;
 
     }
     public void addLast(T item)
@@ -216,15 +216,15 @@ public class ArrayDeque<T> implements Iterable
         if(arr[last] == null){
             arr[last] = item;
         }
-         else if(last == size - 1){
-             last = 0;
-             arr[last] = item;
-         }
-         else{
-             last = last + 1;
-             arr[last] = item;
-         }
-         cache ++;
+        else if(last == size - 1){
+            last = 0;
+            arr[last] = item;
+        }
+        else{
+            last = last + 1;
+            arr[last] = item;
+        }
+        cache ++;
     }
     public int size(){
         return cache;
@@ -291,6 +291,15 @@ public class ArrayDeque<T> implements Iterable
     public Iterator iterator() {
         return new ArrayDequeIterator();
     }
+
+    public boolean isEmpty() {
+        return  true;
+    }
+
+    public void a(ArrayDeque<T> arr) {
+    }
+
+
     public class ArrayDequeIterator implements Iterator{
         public ArrayDequeIterator(){
             wiz = first;
@@ -298,8 +307,8 @@ public class ArrayDeque<T> implements Iterable
 
         @Override
         public boolean hasNext() {
-                if(wiz == last+1 && wiz +1 != first)return false;
-                else return true;
+            if(wiz == last+1 && wiz +1 != first)return false;
+            else return true;
         }
 
         @Override

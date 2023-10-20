@@ -45,7 +45,7 @@ public class AListNoResizing<Item> {
     }
 
     /** Deletes item from back of the list and
-      * returns deleted item. */
+     * returns deleted item. */
     public Item removeLast() {
         Item x = getLast();
         items[size - 1] = null;

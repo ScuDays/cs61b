@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static capers.Utils.*;
 
-/** A repository for Capers 
+/** A repository for Capers
  * @author TODO
  * The structure of a Capers Repository is as follows:
  *
@@ -25,7 +25,7 @@ public class CapersRepository {
 
     /** Main metadata folder. */
     static final File CAPERS_FOLDER = new File("D:\\cs61B\\lab6\\capers"); // TODO Hint: look at the `join`
-                                            //      function in Utils
+    //      function in Utils
     static File StORY_FIle = new File("D:\\cs61B\\lab6\\capers\\story.txt");
 
     /**
@@ -92,10 +92,10 @@ public class CapersRepository {
      */
     public static void celebrateBirthday(String name) {
         // TODO
-         String folder  = "D:\\cs61B\\lab6\\capers\\" + name + ".txt";
-         File input = new File(folder);
-         Dog dog = Utils.readObject(input, Dog.class);
-          dog.haveBirthday();
+        String folder  = "D:\\cs61B\\lab6\\capers\\" + name + ".txt";
+        File input = new File(folder);
+        Dog dog = Utils.readObject(input, Dog.class);
+        dog.haveBirthday();
 
         File output = new File(folder);
         Utils.writeObject(output,dog);

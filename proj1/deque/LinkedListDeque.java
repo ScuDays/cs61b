@@ -119,6 +119,10 @@ public class LinkedListDeque<T> implements Iterable<T>{
     private int cache;
     private int wiz;
 
+    public boolean isEmpty() {
+        return true;
+    }
+
     private class IntNode{
         IntNode last;
         T own;
@@ -275,8 +279,8 @@ public class LinkedListDeque<T> implements Iterable<T>{
     }
     public T getRecursive(int number){
         if(getHelp.next == null){
-           getHelp = new IntNode();
-           getHelp.next = sentinel.next;
+            getHelp = new IntNode();
+            getHelp.next = sentinel.next;
         }
 
         if(number==1){
@@ -285,9 +289,9 @@ public class LinkedListDeque<T> implements Iterable<T>{
             return a;
         }
         else {
-           this.getHelp.next = this.getHelp.next.next;
-           number--;
-           return this.getRecursive(number);
+            this.getHelp.next = this.getHelp.next.next;
+            number--;
+            return this.getRecursive(number);
         }
 
     }

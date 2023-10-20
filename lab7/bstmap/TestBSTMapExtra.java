@@ -9,11 +9,11 @@ import org.junit.Test;
 public class TestBSTMapExtra {
 
     /*
-    * Sanity test for keySet, only here because it's optional
-    */
+     * Sanity test for keySet, only here because it's optional
+     */
     @Test
     public void sanityKeySetTest() {
-    	BSTMap<String, Integer> b = new BSTMap<String, Integer>();
+        BSTMap<String, Integer> b = new BSTMap<String, Integer>();
         HashSet<String> values = new HashSet<String>();
         for (int i = 0; i < 455; i++) {
             b.put("hi" + i, 1);
@@ -81,8 +81,8 @@ public class TestBSTMapExtra {
     }
 
     /* Remove Test 3
-    *  Checks that remove works correctly on root nodes
-    *  when the node has only 1 or 0 children on either side. */
+     *  Checks that remove works correctly on root nodes
+     *  when the node has only 1 or 0 children on either side. */
     @Test
     public void testRemoveRootEdge() {
         BSTMap rightChild = new BSTMap();

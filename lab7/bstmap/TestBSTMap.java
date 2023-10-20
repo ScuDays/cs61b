@@ -29,14 +29,14 @@ public class TestBSTMap {
             b.put("hi" + i, 1+i);
             //make sure put is working via containsKey and get
             assertTrue( null != b.get("hi" + i) && (b.get("hi"+i).equals(1+i))
-                        && b.containsKey("hi" + i));
+                    && b.containsKey("hi" + i));
         }
         assertEquals(455, b.size());
         b.clear();
         assertEquals(0, b.size());
         for (int i = 0; i < 455; i++) {
-           assertTrue(null == b.get("hi" + i) && !b.containsKey("hi" + i));
-       }
+            assertTrue(null == b.get("hi" + i) && !b.containsKey("hi" + i));
+        }
     }
 
     // assumes put works
@@ -96,9 +96,9 @@ public class TestBSTMap {
         b.put("abc", 3);
         b.put("ab", 2);
         b.put("abcde", 5);
-       // b.put("abcd", 4);
+        // b.put("abcd", 4);
 
-       // System.out.println(b.get("abcd"));
+        // System.out.println(b.get("abcd"));
         b.printInOrder();
     }
 

@@ -45,7 +45,7 @@ import static org.junit.Assert.assertEquals;
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
     public void addRemoveTest() {
 
-      //  System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
+        //  System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
         // should be empty
         assertTrue("lld1 should be empty upon initialization", lld1.isEmpty());
@@ -64,7 +64,7 @@ import static org.junit.Assert.assertEquals;
     /* Tests removing from an empty deque */
     public void removeEmptyTest() {
 
-       // System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
+        // System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
         lld1.addFirst(3);
 

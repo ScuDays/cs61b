@@ -83,7 +83,7 @@ class Utils {
             in.close();
             return result;
         } catch (IOException | ClassCastException
-                | ClassNotFoundException excp) {
+                 | ClassNotFoundException excp) {
             throw new IllegalArgumentException(excp.getMessage());
         }
     }
@@ -96,7 +96,7 @@ class Utils {
 
     /* OTHER FILE UTILITIES */
 
-   /* *//** Return the concatentation of FIRST and OTHERS into a File designator,
+    /* *//** Return the concatentation of FIRST and OTHERS into a File designator,
      *  analogous to the {link java.nio.file.Paths.#get(String, String[])}
      *  method. *//*
     static File join(String first, String... others) {
