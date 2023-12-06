@@ -293,7 +293,10 @@ public class ArrayDeque<T> implements Iterable
     }
 
     public boolean isEmpty() {
-        return  true;
+        if(cache == 0)
+        return true;
+        else
+            return false;
     }
 
     public void a(ArrayDeque<T> arr) {
