@@ -1,6 +1,8 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
+
 import static capers.Utils.*;
 
 /** A repository for Capers 
@@ -18,10 +20,14 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = null; // TODO Hint: look at the `join`
-                                            //      function in Utils
+    static final File CAPERS_FOLDER = Utils.join(CWD, "capers"); // TODO Hint: look at the `join`
+                                            //      function in Utils4
 
-    /**
+    static final File PointCapers_Folder = Utils.join(CAPERS_FOLDER,".capers");
+    static final File Dogs_Folder = Utils.join(PointCapers_Folder,"dogs");
+    static final File Story = Utils.join(PointCapers_Folder,"story");
+
+    /**cd
      * Does required filesystem operations to allow for persistence.
      * (creates any necessary folders or files)
      * Remember: recommended structure (you do not have to follow):
@@ -30,8 +36,11 @@ public class CapersRepository {
      *    - dogs/ -- folder containing all of the persistent data for dogs
      *    - story -- file containing the current story
      */
-    public static void setupPersistence() {
+    public static void setupPersistence() throws IOException {
         // TODO
+        if(!PointCapers_Folder.exists())PointCapers_Folder.mkdir();
+        if(!Dogs_Folder.exists())Dogs_Folder.mkdir();
+        if(!Story.exists())Story.createNewFile();
     }
 
     /**
@@ -39,17 +48,26 @@ public class CapersRepository {
      * to a file called `story` in the .capers directory.
      * @param text String of the text to be appended to the story
      */
-    public static void writeStory(String text) {
+    public static void writeStory(String text) throws IOException {
         // TODO
-    }
+        setupPersistence();
+        String existText = readContentsAsString(Story);
+        existText = existText + text;
+        System.out.println(existText);
+        existText = existText + "\n";
+        writeContents(Story, existText);
+}
 
     /**
      * Creates and persistently saves a dog using the first
      * three non-command arguments of args (name, breed, age).
      * Also prints out the dog's information using toString().
      */
-    public static void makeDog(String name, String breed, int age) {
+    public static void makeDog(String name, String breed, int age) throws IOException {
         // TODO
+        Dog newDog = new Dog(name, breed, age);
+        System.out.println(newDog.toString());
+        newDog.saveDog();
     }
 
     /**
@@ -58,7 +76,10 @@ public class CapersRepository {
      * Chooses dog to advance based on the first non-command argument of args.
      * @param name String name of the Dog whose birthday we're celebrating.
      */
-    public static void celebrateBirthday(String name) {
+    public static void celebrateBirthday(String name) throws IOException {
         // TODO
+        Dog theDog = Dog.fromFile(name);
+        theDog.haveBirthday();
+        theDog.saveDog();
     }
 }
