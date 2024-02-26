@@ -19,13 +19,14 @@ public class CapersRepository {
     /** Current Working Directory. */
     static final File CWD = new File(System.getProperty("user.dir"));
 
+
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = Utils.join(CWD, "capers"); // TODO Hint: look at the `join`
+    static final File CAPERS_FOLDER = Utils.join(CWD, ".capers"); // TODO Hint: look at the `join`
                                             //      function in Utils4
 
-    static final File PointCapers_Folder = Utils.join(CAPERS_FOLDER,".capers");
-    static final File Dogs_Folder = Utils.join(PointCapers_Folder,"dogs");
-    static final File Story = Utils.join(PointCapers_Folder,"story");
+    //static final File PointCapers_Folder = Utils.join(CAPERS_FOLDER,".capers");
+    static final File Dogs_Folder = Utils.join(CAPERS_FOLDER,"dogs");
+    static final File Story = Utils.join(CAPERS_FOLDER,"story");
 
     /**cd
      * Does required filesystem operations to allow for persistence.
@@ -38,7 +39,7 @@ public class CapersRepository {
      */
     public static void setupPersistence() throws IOException {
         // TODO
-        if(!PointCapers_Folder.exists())PointCapers_Folder.mkdir();
+        if(!CAPERS_FOLDER.exists())CAPERS_FOLDER.mkdir();
         if(!Dogs_Folder.exists())Dogs_Folder.mkdir();
         if(!Story.exists())Story.createNewFile();
     }
