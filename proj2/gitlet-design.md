@@ -1,6 +1,6 @@
 # Gitlet Design Document
 
-**Name**:
+**Name**:Yang Dong
 
 ## Classes and Data Structures
 
