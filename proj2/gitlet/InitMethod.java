@@ -57,6 +57,7 @@ public class InitMethod {
         commits_Folder.mkdir();
         blobs_Folder.mkdir();
         pointers_Folder.mkdir();
+        System.out.println("执行完毕");
 
     }
 }
