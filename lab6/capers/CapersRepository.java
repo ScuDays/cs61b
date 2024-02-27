@@ -19,7 +19,6 @@ public class CapersRepository {
     /** Current Working Directory. */
     static final File CWD = new File(System.getProperty("user.dir"));
 
-
     /** Main metadata folder. */
     static final File CAPERS_FOLDER = Utils.join(CWD, ".capers"); // TODO Hint: look at the `join`
                                             //      function in Utils4
@@ -58,7 +57,6 @@ public class CapersRepository {
         existText = existText + "\n";
         writeContents(Story, existText);
 }
-
     /**
      * Creates and persistently saves a dog using the first
      * three non-command arguments of args (name, breed, age).
@@ -70,7 +68,6 @@ public class CapersRepository {
         System.out.println(newDog.toString());
         newDog.saveDog();
     }
-
     /**
      * Advances a dog's age persistently and prints out a celebratory message.
      * Also prints out the dog's information using toString().
