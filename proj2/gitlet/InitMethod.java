@@ -25,30 +25,27 @@ public class InitMethod {
         Init_FOLDER = new File(System.getProperty("user.dir"));
         Init_FOLDER = Utils.join(Init_FOLDER, ".gitlet");
     }
-
     static void Init() {
         /** 检查是否已经存在存储库 */
-//        File path = new File(System.getProperty("user.dir"));
-//        File[] fs = path.listFiles();
-//        for (int i = 0; i < fs.length; i++) {
-//            if (fs[i].getName().equals(".gitlet")) {
-//                System.out.println("A Gitlet version-control system already exists in the current directory.");
-//                System.exit(0);
-//            }
         if(Init_FOLDER.exists()){
             System.out.println("A Gitlet version-control system already exists in the current directory.");
             System.exit(0);
         }
         /** 创建文件目录 */
         InitFileFolder();
+        /** Date构造函数接收一个参数，该参数是从 1970 年 1 月 1 日起的毫秒数。按要求所以填0 */
+            Commit firstCommit = new Commit("initial commit", new Date(0));
+            String CommitName = Utils.sha1(firstCommit);
 
-//        /** Date构造函数接收一个参数，该参数是从 1970 年 1 月 1 日起的毫秒数。按要求所以填0 */
-//            Commit firstCommit = new Commit("initial commit", new Date(0));
-//
-//        /** init时候产生的头指针 */
-//            Pointer master  = new Pointer();
+        /** init时候产生的头指针 */
+            Pointer master  = new Pointer();
+
+        //TODO 应该先把Commit储存完了再获取
+        /** 设定指针指向第一个Commit的文件名 */
+            // 有问题 master.setCurrentLocation(Utils.sha1(firstCommit));
         }
 
+        /** 初始化文件目录 */
     static void InitFileFolder(){
         File commits_Folder = Utils.join(InitMethod.Init_FOLDER, "Commits");
         File blobs_Folder = Utils.join(InitMethod.Init_FOLDER, "blobs");
@@ -57,7 +54,5 @@ public class InitMethod {
         commits_Folder.mkdir();
         blobs_Folder.mkdir();
         pointers_Folder.mkdir();
-        System.out.println("执行完毕");
-
     }
 }

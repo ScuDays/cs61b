@@ -10,4 +10,12 @@ public class Pointer {
     public Pointer(String CurrentLocation){
         this.CurrentLocation = CurrentLocation;
     }
+
+    public String getCurrentLocation() {
+        return CurrentLocation;
+    }
+
+    public void setCurrentLocation(String currentLocation) {
+        CurrentLocation = currentLocation;
+    }
 }

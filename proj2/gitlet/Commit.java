@@ -32,38 +32,8 @@ public class Commit implements Serializable {
     private String parent;
     /** Commit 序列化存储的文件夹 */
     private String Commit_FOLDER;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Date getCommitDate() {
-        return commitDate;
-    }
-
-    public void setCommitDate(Date commitDate) {
-        this.commitDate = commitDate;
-    }
-
-    public String getParent() {
-        return parent;
-    }
-
-    public void setParent(String parent) {
-        this.parent = parent;
-    }
-
-    public String getCommit_FOLDER() {
-        return Commit_FOLDER;
-    }
-
-    public void setCommit_FOLDER(String commit_FOLDER) {
-        Commit_FOLDER = commit_FOLDER;
-    }
+    /** 暂存区域——文件名与其对应的文件版本*/
+    private StagingArea StoreArea;
 
 /**
      * 用法： java gitlet.Main commit [message]
@@ -84,12 +54,23 @@ public class Commit implements Serializable {
         this.message = message;
         this.commitDate = commitDate;
     }
-    public static void CommitWrite(){
+
+    /** TODO: 2024/2/27 commit 需要存储当前版本指向的哈希名文件 每次都要更新，用什么数据结构更新速度快呢?   */
+    /** 使用了Treemap来实现，Treemap在StagingArea中 */
+
+    /** 修改将要commit的commit的暂存区域 */
+    public void SetStagingArea(StagingArea StoreArea){
+        this.StoreArea = StoreArea;
+    }
+    /** TODO: Commit
+
+     /** 包装一个Commit存储到本地的方法
+     Commit TheCommit 为需要存储的Commit
+     String FileName 为所存储的Commit的文件名——哈希值
+     */
+    public static void CommitWrite(Commit TheCommit, String FileName){
 
     }
-    /** TODO: 2024/2/27 commit 需要存储当前版本指向的哈希名文件 每次都要更新，用什么数据结构更新速度快呢?   */
-
-    /** TODO: Commit
 
     /* TODO: fill in the rest of this class. */
 }
