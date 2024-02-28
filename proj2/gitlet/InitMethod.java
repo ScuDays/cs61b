@@ -1,5 +1,7 @@
 package gitlet;
 
+import jdk.jshell.execution.Util;
+
 import java.io.File;
 import java.util.Date;
 
@@ -35,14 +37,21 @@ public class InitMethod {
         InitFileFolder();
         /** Date构造函数接收一个参数，该参数是从 1970 年 1 月 1 日起的毫秒数。按要求所以填0 */
             Commit firstCommit = new Commit("initial commit", new Date(0));
-            String CommitName = Utils.sha1(firstCommit);
-
         /** init时候产生的头指针 */
             Pointer master  = new Pointer();
 
         //TODO 应该先把Commit储存完了再获取
         /** 设定指针指向第一个Commit的文件名 */
-            // 有问题 master.setCurrentLocation(Utils.sha1(firstCommit));
+       Pointer a = new Pointer();
+        /** 将所要存的文件 序列化 转换为字节数组 才能SHA1获得哈希值 */
+
+        /** TODO 考虑打包成Commit的一个函数 *//*
+        byte[] writeFileArr = Utils.serialize(firstCommit);
+        String writeFileName = Utils.sha1(writeFileArr);
+        File writeFile = Utils.join(Init_FOLDER,firstCommit.getCommit_FOLDER(), writeFileName);
+        Utils.writeObject(writeFile, byte[].class);*/
+        /** 存储firstCommit */
+        Commit.CommitWrite(firstCommit);
         }
 
         /** 初始化文件目录 */

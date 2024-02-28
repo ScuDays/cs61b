@@ -2,6 +2,7 @@ package gitlet;
 
 // TODO: any imports you need here
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date; // TODO: You'll likely use this in this class
 
@@ -35,6 +36,11 @@ public class Commit implements Serializable {
     /** 暂存区域——文件名与其对应的文件版本*/
     private StagingArea StoreArea;
 
+
+    public String getCommit_FOLDER() {
+        return Commit_FOLDER;
+    }
+
 /**
      * 用法： java gitlet.Main commit [message]
      * 说明：将跟踪文件的快照保存在当前提交和暂存区域中，以便以后可以还原它们，
@@ -53,6 +59,8 @@ public class Commit implements Serializable {
     public Commit(String message, Date commitDate) {
         this.message = message;
         this.commitDate = commitDate;
+        this.Commit_FOLDER = "Commits";
+
     }
 
     /** TODO: 2024/2/27 commit 需要存储当前版本指向的哈希名文件 每次都要更新，用什么数据结构更新速度快呢?   */
@@ -68,8 +76,12 @@ public class Commit implements Serializable {
      Commit TheCommit 为需要存储的Commit
      String FileName 为所存储的Commit的文件名——哈希值
      */
-    public static void CommitWrite(Commit TheCommit, String FileName){
-
+    public static void CommitWrite(Commit TheCommit){
+        /** TODO 考虑打包成Commit的一个函数 */
+        byte[] writeFileArr = Utils.serialize(TheCommit);
+        String writeFileName = Utils.sha1(writeFileArr);
+        File writeFile = Utils.join(System.getProperty("user.dir"),".gitlet", TheCommit.getCommit_FOLDER(), writeFileName);
+        Utils.writeObject(writeFile, byte[].class);
     }
 
     /* TODO: fill in the rest of this class. */
