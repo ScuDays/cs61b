@@ -51,7 +51,7 @@ public class InitMethod {
         File writeFile = Utils.join(Init_FOLDER,firstCommit.getCommit_FOLDER(), writeFileName);
         Utils.writeObject(writeFile, byte[].class);*/
         /** 存储firstCommit */
-        Commit.CommitWrite(firstCommit);
+        firstCommit.SerializeStore();
         }
 
         /** 初始化文件目录 */

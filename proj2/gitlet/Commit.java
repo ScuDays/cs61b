@@ -13,7 +13,7 @@ import java.util.Date; // TODO: You'll likely use this in this class
  *
  * @author TODO
  */
-public class Commit implements Serializable {
+public class Commit implements Serializable, SerializeStoreFuntion {
     /**
      * TODO: add instance variables here.
      *
@@ -70,17 +70,15 @@ public class Commit implements Serializable {
     public void SetStagingArea(StagingArea StoreArea){
         this.StoreArea = StoreArea;
     }
-    /** TODO: Commit
 
-     /** 包装一个Commit存储到本地的方法
-     Commit TheCommit 为需要存储的Commit
-     String FileName 为所存储的Commit的文件名——哈希值
-     */
-    public static void CommitWrite(Commit TheCommit){
+    /** TODO: Commit
+     /** 包装一个Commit存储到本地的方法*/
+    @Override
+    public void SerializeStore() {
         /** TODO 考虑打包成Commit的一个函数 */
-        byte[] writeFileArr = Utils.serialize(TheCommit);
+        byte[] writeFileArr = Utils.serialize(this);
         String writeFileName = Utils.sha1(writeFileArr);
-        File writeFile = Utils.join(System.getProperty("user.dir"),".gitlet", TheCommit.getCommit_FOLDER(), writeFileName);
+        File writeFile = Utils.join(System.getProperty("user.dir"),".gitlet", this.getCommit_FOLDER(), writeFileName);
         Utils.writeObject(writeFile, byte[].class);
     }
 
