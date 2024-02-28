@@ -16,47 +16,54 @@ public class InitMethod {
      * 由于 Gitlet 创建的所有仓库中的初始提交将具有完全相同的内容，因此所有仓库将自动共享此提交（它们都将具有相同的 UID），
      * 并且所有存储库中的所有提交都将追溯到它。*/
 
-    // TODO: 2024/2/26  
     /**
      * 失败情况：如果当前目录中已经有 Gitlet 版本控制系统，它应该中止。
      * 它不应该用新系统覆盖现有系统。应打印错误消息 ：
      * A Gitlet version-control system already exists in the current directory.
      */
+
+
+    /**
+     * 初始化的文件夹
+     */
     private static File Init_FOLDER;
+
     static {
         Init_FOLDER = new File(System.getProperty("user.dir"));
         Init_FOLDER = Utils.join(Init_FOLDER, ".gitlet");
     }
+
     static void Init() {
         /** 检查是否已经存在存储库 */
-        if(Init_FOLDER.exists()){
+        if (Init_FOLDER.exists()) {
             System.out.println("A Gitlet version-control system already exists in the current directory.");
             System.exit(0);
         }
         /** 创建文件目录 */
         InitFileFolder();
         /** Date构造函数接收一个参数，该参数是从 1970 年 1 月 1 日起的毫秒数。按要求所以填0 */
-            Commit firstCommit = new Commit("initial commit", new Date(0));
-        /** init时候产生的头指针 */
-            Pointer master  = new Pointer();
+        Commit firstCommit = new Commit("initial commit", new Date(0));
 
-        //TODO 应该先把Commit储存完了再获取
-        /** 设定指针指向第一个Commit的文件名 */
-       Pointer a = new Pointer();
-        /** 将所要存的文件 序列化 转换为字节数组 才能SHA1获得哈希值 */
-
-        /** TODO 考虑打包成Commit的一个函数 *//*
-        byte[] writeFileArr = Utils.serialize(firstCommit);
-        String writeFileName = Utils.sha1(writeFileArr);
-        File writeFile = Utils.join(Init_FOLDER,firstCommit.getCommit_FOLDER(), writeFileName);
-        Utils.writeObject(writeFile, byte[].class);*/
+        /** TODO 考虑打包成Commit的一个函数 */
         /** 存储firstCommit */
-        firstCommit.SerializeStore();
-        }
+        String location = firstCommit.SerializeStore();
+        /** 设定指针指向第一个Commit的文件名 */
+        /** init时候产生的头指针 */
+        Pointer master = new Pointer(location, "master");
+        master.SerializeStore();
 
-        /** 初始化文件目录 */
-    static void InitFileFolder(){
-        File commits_Folder = Utils.join(InitMethod.Init_FOLDER, "Commits");
+        /** 测试是否能够正确读取回来 */
+        Commit readCommit = Commit.SerializeRead(location);
+        System.out.println(readCommit.getMessage());
+
+    }
+
+
+    /**
+     * 初始化文件目录
+     */
+    static void InitFileFolder() {
+        File commits_Folder = Utils.join(InitMethod.Init_FOLDER, "commits");
         File blobs_Folder = Utils.join(InitMethod.Init_FOLDER, "blobs");
         File pointers_Folder = Utils.join(InitMethod.Init_FOLDER, "pointers");
         Init_FOLDER.mkdir();
