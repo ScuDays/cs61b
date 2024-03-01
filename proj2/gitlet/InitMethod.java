@@ -3,6 +3,7 @@ package gitlet;
 import jdk.jshell.execution.Util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 public class InitMethod {
@@ -28,12 +29,16 @@ public class InitMethod {
      */
     private static File Init_FOLDER;
 
+    public static File getInit_FOLDER() {
+        return Init_FOLDER;
+    }
+
     static {
         Init_FOLDER = new File(System.getProperty("user.dir"));
         Init_FOLDER = Utils.join(Init_FOLDER, ".gitlet");
     }
 
-    static void Init() {
+    static void Init() throws IOException {
         /** 检查是否已经存在存储库 */
         if (Init_FOLDER.exists()) {
             System.out.println("A Gitlet version-control system already exists in the current directory.");
@@ -47,14 +52,18 @@ public class InitMethod {
         /** TODO 考虑打包成Commit的一个函数 */
         /** 存储firstCommit */
         String location = firstCommit.SerializeStore();
+
         /** 设定指针指向第一个Commit的文件名 */
         /** init时候产生的头指针 */
         Pointer master = new Pointer(location, "master");
         master.SerializeStore();
 
-        /** 测试是否能够正确读取回来 */
+        /** 测试是否能够正确读取回来
         Commit readCommit = Commit.SerializeRead(location);
         System.out.println(readCommit.getMessage());
+            测试成功
+         */
+
 
     }
 
@@ -62,7 +71,7 @@ public class InitMethod {
     /**
      * 初始化文件目录
      */
-    static void InitFileFolder() {
+    static void InitFileFolder() throws IOException {
         File commits_Folder = Utils.join(InitMethod.Init_FOLDER, "commits");
         File blobs_Folder = Utils.join(InitMethod.Init_FOLDER, "blobs");
         File pointers_Folder = Utils.join(InitMethod.Init_FOLDER, "pointers");
@@ -70,5 +79,13 @@ public class InitMethod {
         commits_Folder.mkdir();
         blobs_Folder.mkdir();
         pointers_Folder.mkdir();
+
+        /** 初始化暂存区域并存储 */
+
+        File stagingAreaFile = Utils.join(InitMethod.Init_FOLDER, "stagingArea");
+        stagingAreaFile.createNewFile();
+        StagingArea stagingArea = new StagingArea(new BlobsMap(), new BlobsMap(), new BlobsMap());
+        Utils.writeObject(stagingAreaFile, stagingArea);
+
     }
 }

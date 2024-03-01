@@ -44,11 +44,11 @@
 #### Instance variable
 * private String CurrentLocation - 存储当前指针所指向commit的哈希值
 
-#### Instance Methon
+#### Instance Method
 *  public String SerializeStore() - 序列化存储Pointer 并返回文件名
-### Class:StagingArea
+### Class:BlobsMap
 #### 描述：该类用于暂存 文件名与其对应的文件版本
-* public TreeMap<String, String> StoreArea - 暂存区域 
+* public TreeMap<String, String> Map - 暂存区域 
 * private static String Pointer_FOLDER = "pointers" - Pointer所存储的文件夹
 * private String Pointer_Name - 指针名字
 

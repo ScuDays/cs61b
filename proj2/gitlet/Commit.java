@@ -13,7 +13,7 @@ import java.util.Date; // TODO: You'll likely use this in this class
  *
  * @author TODO
  */
-public class Commit implements Serializable, SerializeStoreFuntion <Commit> {
+public class Commit implements Serializable, SerializeStoreFuntion {
     /**
      * TODO: add instance variables here.
      *
@@ -28,7 +28,7 @@ public class Commit implements Serializable, SerializeStoreFuntion <Commit> {
     /**
      * 时间
      */
-    private Date commitDate;
+    private Date commitDate ;
     /**
      * 父引用 通过名字找到父引用
      */
@@ -40,7 +40,7 @@ public class Commit implements Serializable, SerializeStoreFuntion <Commit> {
     /**
      * 暂存区域——文件名与其对应的文件版本
      */
-    private StagingArea StoreArea;
+    private BlobsMap ActualBlobsMap;
     /**
      * 储存的文件名
      */
@@ -72,6 +72,8 @@ public class Commit implements Serializable, SerializeStoreFuntion <Commit> {
     /**
      * 在构造函数中一次性把序列化的各个过程都完成
      */
+
+
     public Commit(String message, Date commitDate) {
         this.message = message;
         this.commitDate = commitDate;
@@ -79,13 +81,9 @@ public class Commit implements Serializable, SerializeStoreFuntion <Commit> {
 
     /** TODO: 2024/2/27 commit 需要存储当前版本指向的哈希名文件 每次都要更新，用什么数据结构更新速度快呢?   */
     /** 使用了Treemap来实现，Treemap在StagingArea中 */
+    BlobsMap Map = new BlobsMap();
 
-    /**
-     * 修改将要commit的commit的暂存区域
-     */
-    public void SetStagingArea(StagingArea StoreArea) {
-        this.StoreArea = StoreArea;
-    }
+
 
     /**
      * TODO: Commit
@@ -108,7 +106,13 @@ public class Commit implements Serializable, SerializeStoreFuntion <Commit> {
         Commit readCommit = Utils.readObject(ReadFile, Commit.class);
         return readCommit;
     }
+    public static void commit(String message) {
+        Commit theCommit = new Commit(message, new Date());
 
+        StagingArea staArea = new StagingArea();
+        staArea.Combine();
+        theCommit.ActualBlobsMap = staArea.getFatherMap();
+    }
     /* TODO: fill in the rest of this class. */
 
 }
