@@ -1,5 +1,6 @@
 package gitlet;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -31,7 +32,7 @@ public class Main {
                 break;
             case "add":
                 // TODO: handle the `add [filename]` command
-
+                StagingArea.Add(args[1]);
                 break;
             case "commit":
                 // TODO: handle the `commit` command
@@ -40,6 +41,7 @@ public class Main {
                 break;
             case "rm":
                 // TODO: handle the `rm` command
+                StagingArea.rm(args[1]);
                 break;
             case "log":
                 // TODO: handle the `log` command

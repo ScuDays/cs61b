@@ -34,8 +34,7 @@ public class InitMethod {
     }
 
     static {
-        Init_FOLDER = new File(System.getProperty("user.dir"));
-        Init_FOLDER = Utils.join(Init_FOLDER, ".gitlet");
+        Init_FOLDER = Utils.join(System.getProperty("user.dir"), ".gitlet");
     }
 
     static void Init() throws IOException {
@@ -58,6 +57,12 @@ public class InitMethod {
         Pointer master = new Pointer(location, "master");
         master.SerializeStore();
 
+        /** 初始化暂存区域并存储 */
+        File stagingAreaFile = Utils.join(InitMethod.Init_FOLDER, "stagingArea");
+        stagingAreaFile.createNewFile();
+        StagingArea stagingArea = new StagingArea(new BlobsMap(), new BlobsMap(), new BlobsMap());
+        Utils.writeObject(stagingAreaFile, stagingArea);
+
         /** 测试是否能够正确读取回来
         Commit readCommit = Commit.SerializeRead(location);
         System.out.println(readCommit.getMessage());
@@ -79,13 +84,5 @@ public class InitMethod {
         commits_Folder.mkdir();
         blobs_Folder.mkdir();
         pointers_Folder.mkdir();
-
-        /** 初始化暂存区域并存储 */
-
-        File stagingAreaFile = Utils.join(InitMethod.Init_FOLDER, "stagingArea");
-        stagingAreaFile.createNewFile();
-        StagingArea stagingArea = new StagingArea(new BlobsMap(), new BlobsMap(), new BlobsMap());
-        Utils.writeObject(stagingAreaFile, stagingArea);
-
     }
 }
