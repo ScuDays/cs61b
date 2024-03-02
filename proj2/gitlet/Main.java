@@ -37,7 +37,7 @@ public class Main {
             case "commit":
                 // TODO: handle the `commit` command
                 String secondArg = args[1];
-                Commit.commit(secondArg);
+                Commit.CommitMethod(secondArg);
                 break;
             case "rm":
                 // TODO: handle the `rm` command

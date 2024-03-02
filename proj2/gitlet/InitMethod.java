@@ -52,10 +52,17 @@ public class InitMethod {
         /** 存储firstCommit */
         String location = firstCommit.SerializeStore();
 
-        /** 设定指针指向第一个Commit的文件名 */
-        /** init时候产生的头指针 */
-        Pointer master = new Pointer(location, "master");
+        /** 设定Head指针指向第一个Commit的文件名 */
+        /** init时候产生的Head指针 */
+        Pointer Head = new Pointer(location, "head");
+        Head.setCurrentBranchPointer("master");
+        Head.setCurrentLocation(location);
+        Head.SerializeStore();
+        /** 初始化master分支，并把初始Commit加入到master分支 */
+        BranchPointer master = new BranchPointer(location, "master");
+        master.add(location);
         master.SerializeStore();
+
 
         /** 初始化暂存区域并存储 */
         File stagingAreaFile = Utils.join(InitMethod.Init_FOLDER, "stagingArea");
@@ -68,8 +75,6 @@ public class InitMethod {
         System.out.println(readCommit.getMessage());
             测试成功
          */
-
-
     }
 
 

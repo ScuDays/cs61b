@@ -46,11 +46,12 @@ public class StagingArea implements Serializable {
          * 解决： .指向的当前目录，所以进入D:\cs61B\proj2\后再接\.，其实还是在D:\cs61B\proj2\
          * 无影响
          */
-        File addFile = Utils.join(System.getProperty("user.dir"),BlobAbsoluteFileName);
+
         /** 读取暂存区文件 */
         StagingArea sta = new StagingArea();
 
-        /** 错误处理，当文件不存在的时候，打印错误信息并退出 */
+        File addFile = Utils.join(System.getProperty("user.dir"),BlobAbsoluteFileName);
+        /** 错误处理，当所要暂存文件不存在的时候，打印错误信息并退出 */
         if (!addFile.exists()){
             System.out.println("File does not exist.");
             System.exit(0);
@@ -118,17 +119,29 @@ public class StagingArea implements Serializable {
         Utils.writeObject(stafile, sta);
     }
 
-    /** 合并三个Map，Commit时要用 */
-    public void Combine(){
-        Iterator<Map.Entry<String, String>> itr1 = AddMap.Map.entrySet().iterator();
+    /** 合并三个Map，并返回处理过之后的映射，Commit时要用 */
+    public static BlobsMap Combine(){
+        /** 读取暂存区文件 */
+        StagingArea sta = new StagingArea();
+
+        Iterator<Map.Entry<String, String>> itr1 = sta.AddMap.Map.entrySet().iterator();
         while (itr1.hasNext()){
             Map.Entry<String, String> map = itr1.next();
-            this.FatherMap.Map.put(map.getKey(), map.getValue());
+            sta.FatherMap.Map.put(map.getKey(), map.getValue());
         }
-        Iterator<Map.Entry<String, String>> itr2 = RmMap.Map.entrySet().iterator();
+        sta.AddMap = new BlobsMap();
+
+        Iterator<Map.Entry<String, String>> itr2 = sta.RmMap.Map.entrySet().iterator();
         while (itr2.hasNext()){
             Map.Entry<String, String> map = itr2.next();
-            this.FatherMap.Map.remove(map.getKey(), map.getValue());
+            sta.FatherMap.Map.remove(map.getKey(), map.getValue());
         }
+        sta.RmMap = new BlobsMap();
+
+        /** 把暂存区域存回去 */
+        File stafile = Utils.join(InitMethod.getInit_FOLDER(), "StagingArea");
+        Utils.writeObject(stafile, sta);
+        return  sta.FatherMap;
+
     }
 }
