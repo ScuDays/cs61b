@@ -5,7 +5,7 @@ import java.util.TimeZone;
 import java.util.Locale;
 
 public class Log {
-
+    /** TODO 处理Merge合并得到的Commit */
     public static void log(){
         Pointer head = Pointer.ReadPointer("head");
         String CurrentBranchPointerName = head.getCurrentBranchPointer();

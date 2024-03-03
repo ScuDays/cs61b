@@ -16,7 +16,12 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         // TODO: what if args is empty?
-
+        try {
+            Main.main(args);
+        } catch (IOException e) {
+            e.printStackTrace(); // 打印异常信息
+            // 可以在这里处理异常，例如记录日志或者给用户错误反馈
+        }
 
         /**无输入参数时，报错并退出。*/
         if (args[0] == null) {
