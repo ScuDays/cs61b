@@ -14,14 +14,9 @@ public class Main {
      * Usage: java gitlet.Main ARGS, where ARGS contains
      * <COMMAND> <OPERAND1> <OPERAND2> ...
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         // TODO: what if args is empty?
-        try {
-            Main.main(args);
-        } catch (IOException e) {
-            e.printStackTrace(); // 打印异常信息
-            // 可以在这里处理异常，例如记录日志或者给用户错误反馈
-        }
+
 
         /**无输入参数时，报错并退出。*/
         if (args[0] == null) {
@@ -34,11 +29,19 @@ public class Main {
         switch (firstArg) {
             case "init":
                 // TODO: handle the `init` command
-                InitMethod.Init();
+                try {
+                    InitMethod.Init();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "add":
                 // TODO: handle the `add [filename]` command
-                StagingArea.Add(args[1]);
+                try {
+                    StagingArea.Add(args[1]);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "commit":
                 // TODO: handle the `commit` command
