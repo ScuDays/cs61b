@@ -16,13 +16,14 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         // TODO: what if args is empty?
-        String firstArg = args[0];
+
 
         /**无输入参数时，报错并退出。*/
-        if (firstArg == null) {
+        if (args[0] == null) {
             System.out.print("Please enter a command.");
             System.exit(0);
         }
+        String firstArg = args[0];
         // TODO: 命令的操作数编号或格式错误怎么处理？
         // TODO: 输入的命令时需要在存储库中，但实际不在，怎么办？
         switch (firstArg) {
