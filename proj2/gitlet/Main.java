@@ -46,6 +46,7 @@ public class Main {
                 break;
             case "log":
                 // TODO: handle the `log` command
+                Log.log();
                 break;
             case "global-log":
                 // TODO: handle the `global-log` command

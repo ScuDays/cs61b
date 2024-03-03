@@ -106,21 +106,32 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         Commit readCommit = Utils.readObject(ReadFile, Commit.class);
         return readCommit;
     }
+
+    public String getParent() {
+        return parent;
+    }
+
+    public Date getCommitDate() {
+        return commitDate;
+    }
+
     /** TODO Commit方法的实现*/
     public static void CommitMethod(String message) {
         /** 创建新commit */
         Commit theCommit = new Commit(message, new Date());
-        /** 修改commit映射 */
-        BlobsMap BlMap = StagingArea.Combine();
-        theCommit.Map = BlMap;
-        /** 存储新的Commit*/
-        String Sha1Name = theCommit.SerializeStore();
         /** 读取head */
         Pointer head = Pointer.ReadPointer("head");
         String CurrentBranch = head.getCurrentBranchPointer();
+        String ParentSh1Name = head.getCurrentLocation();
+        /** 修改commit映射 并 存储新的Commit*/
+        BlobsMap BlMap = StagingArea.Combine();
+        theCommit.Map = BlMap;
+        theCommit.parent = ParentSh1Name ;
+        String Sha1Name = theCommit.SerializeStore();
+        /** 设置并存储head */
         head.setCurrentLocation(Sha1Name);
         head.SerializeStore();
-        /** 读取分支指针 */
+        /** 读取、设置并存储分支指针 */
         BranchPointer branchPointer = (BranchPointer)BranchPointer.ReadPointer(CurrentBranch);
         branchPointer.add(Sha1Name);
         branchPointer.SerializeStore();
