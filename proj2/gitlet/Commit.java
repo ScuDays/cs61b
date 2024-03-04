@@ -36,7 +36,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
     /**
      * Commit 序列化存储的文件夹
      */
-    private static String Commit_FOLDER = "Commits";
+    private static String Commit_FOLDER = "commits";
     /**
      * 暂存区域——文件名与其对应的文件版本
      */
@@ -54,7 +54,9 @@ public class Commit implements Serializable, SerializeStoreFuntion {
     public String getCommit_FOLDER() {
         return Commit_FOLDER;
     }
-
+    public static String getCommit_FOLDER_static() {
+        return Commit_FOLDER;
+    }
 /**
  * 用法： java gitlet.Main commit [message]
  * 说明：将跟踪文件的快照保存在当前提交和暂存区域中，以便以后可以还原它们，

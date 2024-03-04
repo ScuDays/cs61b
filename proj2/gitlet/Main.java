@@ -61,6 +61,7 @@ public class Main {
                 break;
             case "find":
                 // TODO: handle the `find` command
+                Find.find(args[1]);
                 break;
             case "status":
                 // TODO: handle the `status` command
