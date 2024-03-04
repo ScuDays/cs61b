@@ -63,6 +63,7 @@ public class Main {
                 break;
             case "status":
                 // TODO: handle the `status` command
+                Status.status();
                 break;
             case "checkout":
                 // TODO: handle the `checkout` command

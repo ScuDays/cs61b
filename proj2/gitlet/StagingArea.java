@@ -109,6 +109,7 @@ public class StagingArea implements Serializable {
         else if(sta.FatherMap.Map.containsKey(BlobAbstractFileName)){
             sta.FatherMap.Map.remove(BlobAbstractFileName);
             workingFile.delete();
+            sta.RmMap.Map.put(BlobAbstractFileName, BlobFileSha1Name);
             System.out.println("该文件未暂存，删除当前工作目录下的该文件");
         }
         /** 若未暂存且先前未跟踪，则打印错误消息 */
