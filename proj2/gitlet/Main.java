@@ -14,13 +14,11 @@ public class Main {
      * Usage: java gitlet.Main ARGS, where ARGS contains
      * <COMMAND> <OPERAND1> <OPERAND2> ...
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         // TODO: what if args is empty?
-
-
         /**无输入参数时，报错并退出。*/
-        if (args[0] == null) {
-            System.out.print("Please enter a command.");
+        if (args.length == 0) {
+            System.out.println("Please enter a command.");
             System.exit(0);
         }
         String firstArg = args[0];
@@ -37,7 +35,11 @@ public class Main {
                 break;
             case "add":
                 // TODO: handle the `add [filename]` command
-                StagingArea.Add(args[1]);
+                try {
+                    StagingArea.Add(args[1]);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "commit":
                 // TODO: handle the `commit` command
@@ -92,6 +94,7 @@ public class Main {
             case "merge":
                 // TODO: handle the `merge` command
                 break;
+
 
         }
     }

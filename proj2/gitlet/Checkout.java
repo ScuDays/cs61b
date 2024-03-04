@@ -6,7 +6,6 @@ import java.io.IOException;
 public class Checkout {
     /** 三种用途 */
 
-
     /** TODO 1: java gitlet.Main checkout -- [file name]
      * 获取头提交中存在的文件版本并将其放入工作目录中，覆盖已存在的文件版本（如果存在）。该文件的新版本未暂存。*/
 
