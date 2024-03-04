@@ -14,7 +14,7 @@ public class Main {
      * Usage: java gitlet.Main ARGS, where ARGS contains
      * <COMMAND> <OPERAND1> <OPERAND2> ...
      */
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws IOException {
         // TODO: what if args is empty?
 
 
@@ -37,11 +37,7 @@ public class Main {
                 break;
             case "add":
                 // TODO: handle the `add [filename]` command
-                try {
-                    StagingArea.Add(args[1]);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                StagingArea.Add(args[1]);
                 break;
             case "commit":
                 // TODO: handle the `commit` command
@@ -68,6 +64,21 @@ public class Main {
                 break;
             case "checkout":
                 // TODO: handle the `checkout` command
+                if(args.length <= 2) {
+                    try {
+                        Checkout.checkoutFileName(args[1]);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+                else {
+                    try {
+                        Checkout.checkoutCommitFileName(args[1], args[2]);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
                 break;
             case "branch":
                 // TODO: handle the `branch` command

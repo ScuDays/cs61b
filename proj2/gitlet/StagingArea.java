@@ -56,6 +56,7 @@ public class StagingArea implements Serializable {
             System.out.println("File does not exist.");
             System.exit(0);
         }
+        System.out.println("成功读取要存储的文件");
         /** 获取要存储文件的SHA1值 */
        /** 读取文件内容 */
         byte [] readFile = Utils.readContents(addFile);
