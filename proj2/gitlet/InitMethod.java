@@ -38,6 +38,7 @@ public class InitMethod {
     }
 
     static void Init() throws IOException {
+        Init_FOLDER = Utils.join(System.getProperty("user.dir"), ".gitlet");
         /** 检查是否已经存在存储库 */
         if (Init_FOLDER.exists()) {
             System.out.println("A Gitlet version-control system already exists in the current directory.");

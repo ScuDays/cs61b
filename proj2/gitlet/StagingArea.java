@@ -26,7 +26,7 @@ public class StagingArea implements Serializable {
 
     /** 读取暂存区信息 */
     public StagingArea(){
-        File FileName = Utils.join(InitMethod.getInit_FOLDER(), "StagingArea");
+        File FileName = Utils.join(InitMethod.getInit_FOLDER(), "stagingArea");
         this.FatherMap =  (Utils.readObject(FileName, StagingArea.class)).FatherMap;
         this.AddMap =  (Utils.readObject(FileName, StagingArea.class)).AddMap;
         this.RmMap =  (Utils.readObject(FileName, StagingArea.class)).RmMap;
