@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Checkout {
     /** 三种用途 */
 
-    /** TODO 1: java gitlet.Main checkout -- [file name]
+    /** TODO 1: java gitlet.Main checkout -- [filmake name]
      * 获取头提交中存在的文件版本并将其放入工作目录中，覆盖已存在的文件版本（如果存在）。该文件的新版本未暂存。*/
 
     /** TODO 2:java gitlet.Main checkout [commit id] -- [file name]
@@ -41,6 +41,7 @@ public class Checkout {
 //        System.out.println(CommitSha1Name);
 //        System.out.println(FileName);
 
+        System.out.println(InitMethod.getInit_FOLDER());
         BlobsMap theMap = theCommit.Map;
         /** 如果对应提交中不存在该文件，报错 */
         if (theMap.Map.containsKey(FileName) == false) {
