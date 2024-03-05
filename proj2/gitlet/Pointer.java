@@ -56,6 +56,9 @@ public class Pointer implements Serializable, SerializeStoreFuntion {
     public String getPointer_FOLDER() {
         return Pointer_FOLDER;
     }
+    public static String getPointer_FOLDER_static() {
+        return Pointer_FOLDER;
+    }
 
     public void setCurrentLocation(String currentLocation) {
         CurrentLocation = currentLocation;

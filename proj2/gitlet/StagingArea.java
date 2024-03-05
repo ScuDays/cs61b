@@ -56,7 +56,7 @@ public class StagingArea implements Serializable {
             System.out.println("File does not exist.");
             System.exit(0);
         }
-        System.out.println("成功读取要存储的文件");
+        //System.out.println("成功读取要存储的文件");
         /** 获取要存储文件的SHA1值 */
        /** 读取文件内容 */
         byte [] readFile = Utils.readContents(addFile);
@@ -91,26 +91,23 @@ public class StagingArea implements Serializable {
         File workingFile = Utils.join(System.getProperty("user.dir"),BlobAbsoluteFileName);
         /** 获取要存储文件的名字 */
         String BlobAbstractFileName = workingFile.getName();
-        /** 获取存储在.gitlet里面的文件 */
-        byte [] readFile = Utils.readContents(workingFile);
-        String BlobFileSha1Name = Utils.sha1(readFile);
-        /** newBlob为.gitlet 里的暂存文件 */
-        File newBlob = Utils.join(InitMethod.getInit_FOLDER(), "blobs", BlobFileSha1Name);
+
         /** 若暂存，则删除暂存 ，
          * TODO 同时删除文件暂存的blob*/
         if(sta.AddMap.Map.containsKey(BlobAbstractFileName)){
+            String BlobFileSha1Name = sta.AddMap.Map.get(BlobAbstractFileName);
             sta.AddMap.Map.remove(BlobAbstractFileName);
+            File newBlob = Utils.join(InitMethod.getInit_FOLDER(), "blobs", BlobFileSha1Name);
             if(newBlob.exists()) {
                 newBlob.delete();
-                System.out.println("该文件已暂存，删除暂存区中文件");
             }
         }
         /** 若未暂存但先前已跟踪，则删除工作目录里面的文件 */
         else if(sta.FatherMap.Map.containsKey(BlobAbstractFileName)){
-            sta.FatherMap.Map.remove(BlobAbstractFileName);
-            workingFile.delete();
+
+            if(workingFile.exists())workingFile.delete();
+            String BlobFileSha1Name = sta.AddMap.Map.get(BlobAbstractFileName);
             sta.RmMap.Map.put(BlobAbstractFileName, BlobFileSha1Name);
-            System.out.println("该文件未暂存，删除当前工作目录下的该文件");
         }
         /** 若未暂存且先前未跟踪，则打印错误消息 */
         else if(!sta.FatherMap.Map.containsKey(BlobAbstractFileName)){
