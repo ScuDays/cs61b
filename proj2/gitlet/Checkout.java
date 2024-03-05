@@ -38,10 +38,7 @@ public class Checkout {
     public static void checkoutCommitFileName(String CommitSha1Name, String FileName) throws IOException {
         /** 如果读取失败，自动报错 */
         Commit theCommit = Commit.SerializeRead(CommitSha1Name);
-//        System.out.println(CommitSha1Name);
-//        System.out.println(FileName);
 
-        System.out.println(InitMethod.getInit_FOLDER());
         BlobsMap theMap = theCommit.Map;
         /** 如果对应提交中不存在该文件，报错 */
         if (theMap.Map.containsKey(FileName) == false) {

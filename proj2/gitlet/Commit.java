@@ -104,7 +104,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
     }
     /** 实现序列化读取 */
     public static Commit SerializeRead(String ReadFileName) {
-        File ReadFile = Utils.join(System.getProperty("user.dir"), ".gitlet", Commit.Commit_FOLDER, ReadFileName);
+        File ReadFile = Utils.join(InitMethod.getInit_FOLDER(), Commit.Commit_FOLDER, ReadFileName);
         /** 当不存在该Sha1名字的Commit时，报错并退出 */
         if(ReadFile.exists() == false){
             System.out.println("No commit with that id exists.");
