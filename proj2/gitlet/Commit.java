@@ -96,9 +96,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         /** TODO 考虑打包成Commit的一个函数 */
         byte[] writeFileArr = Utils.serialize(this);
         String writeFileName = Utils.sha1(writeFileArr);
-        File writeFile = Utils.join(System.getProperty("user.dir"), ".gitlet", this.getCommit_FOLDER(), writeFileName);
-        //这里应该直接存储Commit类型而不是byte[].class，化成字节数组只是为了获取sha1值。
-        // Utils.writeObject(writeFile, byte[].class);
+        File writeFile = Utils.join(InitMethod.getInit_FOLDER(), this.getCommit_FOLDER(), writeFileName);
         Utils.writeObject(writeFile, this);
         return writeFileName;
     }
