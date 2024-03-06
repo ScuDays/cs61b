@@ -61,7 +61,7 @@ public class InitMethod {
         Head.SerializeStore();
         /** 初始化master分支，并把初始Commit加入到master分支 */
         BranchPointer master = new BranchPointer(location, "master");
-        master.add(location);
+        //master.add(location);
         master.SerializeStore();
 
 

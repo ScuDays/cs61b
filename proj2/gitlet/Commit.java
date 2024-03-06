@@ -124,7 +124,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
     public static void CommitMethod(String message) {
         /** 创建新commit */
         Commit theCommit = new Commit(message, new Date());
-        /** 读取head */
+        /** 读取head的信息 */
         Pointer head = Pointer.ReadPointer("head");
         String CurrentBranch = head.getCurrentBranchPointer();
         String ParentSh1Name = head.getCurrentLocation();
@@ -137,7 +137,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         head.setCurrentLocation(Sha1Name);
         head.SerializeStore();
         /** 读取、设置并存储分支指针 */
-        BranchPointer branchPointer = (BranchPointer)BranchPointer.ReadPointer(CurrentBranch);
+        BranchPointer branchPointer = BranchPointer.ReadBranchPointer(CurrentBranch);
         branchPointer.add(Sha1Name);
         branchPointer.SerializeStore();
     }

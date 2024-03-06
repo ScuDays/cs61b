@@ -1,5 +1,6 @@
 package gitlet;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -56,6 +57,23 @@ public class Checkout {
         if(changeFile.exists() == false)changeFile.createNewFile();
         /** 把指定的文件写到本地工作目录中 */
         Utils.writeContents(changeFile, SourceFile);
+    }
+    /** java gitlet.Main checkout [branch name] */
+    public static void checkoutBranch(String BranchName){
+        /** 如果该分支是当前分支，则报错*/
+        Pointer head = Pointer.ReadPointer("head");
+        String CurrentBranch = head.getCurrentBranchPointer();
+        if(CurrentBranch.equals(BranchName)){
+            System.out.println("No need to checkout the current branch.");
+            System.exit(0);
+        }
+        /** 如果不存在具有该名称的分支，则自动打印 No such branch exists.*/
+        BranchPointer theBranch = BranchPointer.ReadBranchPointer(BranchName);
+        /** 如果工作文件在当前分支中未跟踪并且将被签出覆盖，
+         * 打印 There is an untracked file in the way; delete it, or add and commit it first.
+         * 并退出*/
+        // TODO
+
     }
 
 

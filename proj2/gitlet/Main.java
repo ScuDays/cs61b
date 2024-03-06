@@ -75,7 +75,10 @@ public class Main {
                 break;
             case "checkout":
                 // TODO: handle the `checkout` command
-                if(args.length == 3) {
+                if(args.length == 2){
+
+                }
+               else if(args.length == 3) {
                     try {
                         Checkout.checkoutFileName(args[2]);
                     } catch (IOException e) {
@@ -93,9 +96,13 @@ public class Main {
                 break;
             case "branch":
                 // TODO: handle the `branch` command
+                Args_isValid(args.length, 2);
+                BranchPointer.Branch(args[1]);
                 break;
             case "rm-branch":
                 // TODO: handle the `rm-branch` command
+                Args_isValid(args.length, 2);
+                BranchPointer.RmBranch(args[1]);
                 break;
             case "reset":
                 // TODO: handle the `reset` command

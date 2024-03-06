@@ -1,6 +1,7 @@
 package gitlet;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,10 @@ public class Pointer implements Serializable, SerializeStoreFuntion {
      * 存储当前指针所指向commit的哈希值
      */
     private String CurrentLocation;
+
+    public Pointer() {
+
+    }
 
     public void setCurrentBranchPointer(String currentBranchPointer) {
         CurrentBranchPointer = currentBranchPointer;
@@ -30,7 +35,6 @@ public class Pointer implements Serializable, SerializeStoreFuntion {
      * 指针名字
      */
     private String Pointer_Name;
-
 
     public Pointer(String CurrentLocation, String Pointer_Name) {
         this.CurrentLocation = CurrentLocation;
@@ -56,6 +60,7 @@ public class Pointer implements Serializable, SerializeStoreFuntion {
     public String getPointer_FOLDER() {
         return Pointer_FOLDER;
     }
+
     public static String getPointer_FOLDER_static() {
         return Pointer_FOLDER;
     }
@@ -68,14 +73,17 @@ public class Pointer implements Serializable, SerializeStoreFuntion {
      * 序列化存储Pointer 并返回文件名
      */
     @Override
-    public String SerializeStore() {
+    public String SerializeStore()  {
         File writeFile = Utils.join(InitMethod.getInit_FOLDER(), this.getPointer_FOLDER(), this.Pointer_Name);
         Utils.writeObject(writeFile, this);
         return this.Pointer_Name;
     }
     public static Pointer ReadPointer(String PointerName){
         File PointerFile = Utils.join(InitMethod.getInit_FOLDER(), Pointer.Pointer_FOLDER, PointerName);
-        if(PointerFile.exists() == false) System.out.println("PointerFile不存在");
+        if(PointerFile.exists() == false) {
+            System.out.println("No such branch exists.");
+            System.exit(0);
+        }
        // System.out.println("测试： 这里是PointerFile地址"+PointerFile);
         return Utils.readObject(PointerFile, Pointer.class);
     }
