@@ -79,7 +79,7 @@ public class StagingArea implements Serializable {
         Utils.writeContents(newBlob, readFile);
 
         /** 把暂存区域存回去 */
-        File stafile = Utils.join(InitMethod.getInit_FOLDER(), "StagingArea");
+        File stafile = Utils.join(InitMethod.getInit_FOLDER(), "stagingArea");
         Utils.writeObject(stafile, sta);
     }
 
