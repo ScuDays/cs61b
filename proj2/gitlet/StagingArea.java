@@ -88,7 +88,7 @@ public class StagingArea implements Serializable {
         /** 读取暂存区文件 */
         StagingArea sta = new StagingArea();
         /** addFile为工作目录里的文件 */
-        File workingFile = Utils.join(System.getProperty("user.dir"),BlobAbsoluteFileName);
+        File workingFile = Utils.join(System.getProperty("user.dir"), BlobAbsoluteFileName);
         /** 获取要存储文件的名字 */
         String BlobAbstractFileName = workingFile.getName();
 
@@ -114,7 +114,7 @@ public class StagingArea implements Serializable {
             System.out.println("No reason to remove the file.");
         }
         /** 把暂存区域存回去 */
-        File stafile = Utils.join(InitMethod.getInit_FOLDER(), "StagingArea");
+        File stafile = Utils.join(InitMethod.getInit_FOLDER(), "stagingArea");
         Utils.writeObject(stafile, sta);
     }
 
@@ -138,7 +138,7 @@ public class StagingArea implements Serializable {
         sta.RmMap = new BlobsMap();
 
         /** 把暂存区域存回去 */
-        File stafile = Utils.join(InitMethod.getInit_FOLDER(), "StagingArea");
+        File stafile = Utils.join(InitMethod.getInit_FOLDER(), "stagingArea");
         Utils.writeObject(stafile, sta);
         return  sta.FatherMap;
 

@@ -69,7 +69,7 @@ public class Pointer implements Serializable, SerializeStoreFuntion {
      */
     @Override
     public String SerializeStore() {
-        File writeFile = Utils.join(System.getProperty("user.dir"), ".gitlet", this.getPointer_FOLDER(), this.Pointer_Name);
+        File writeFile = Utils.join(InitMethod.getInit_FOLDER(), this.getPointer_FOLDER(), this.Pointer_Name);
         Utils.writeObject(writeFile, this);
         return this.Pointer_Name;
     }
