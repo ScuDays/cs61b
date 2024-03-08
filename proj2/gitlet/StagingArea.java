@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-
+    /**TODO 存在一个问题，在Commit中所存储的文件路径都是只有文件名，
+     * TODO 无法反应一个真实的文件树，但好像在测试用例中无影响，用例中没有复杂结构，只存在一个平面文件结构。
+     * TODO 如果后续出现问题，需要更改一下，格式化一下文件路径 */
 public class StagingArea implements Serializable {
     public BlobsMap getFatherMap() {
         return FatherMap;
@@ -37,8 +39,19 @@ public class StagingArea implements Serializable {
         this.RmMap = RmMap;
     }
 
+        public void setFatherMap(BlobsMap fatherMap) {
+            FatherMap = fatherMap;
+        }
 
-    public static void Add(String BlobAbsoluteFileName) throws IOException {
+        public void setAddMap(BlobsMap addMap) {
+            AddMap = addMap;
+        }
+
+        public void setRmMap(BlobsMap rmMap) {
+            RmMap = rmMap;
+        }
+
+        public static void Add(String BlobAbsoluteFileName) throws IOException {
         /** 路径名怎么处理 */
         /** 很奇怪 输入为.\gitlet\ddd.txt ，然后合成变成D:\cs61B\proj2\.\gitlet\ddd.txt，
          * 这样的目录可以正常的读取文件
@@ -46,7 +59,7 @@ public class StagingArea implements Serializable {
          * 解决： .指向的当前目录，所以进入D:\cs61B\proj2\后再接\.，其实还是在D:\cs61B\proj2\
          * 无影响
          */
-
+        //System.out.println(BlobAbsoluteFileName);
         /** 读取暂存区文件 */
         StagingArea sta = new StagingArea();
 
@@ -64,6 +77,7 @@ public class StagingArea implements Serializable {
 
         /** 获取要存储文件的名字 */
         String BlobAbstractFileName = addFile.getName();
+
 
 
         /** 如果文件的当前工作版本与当前提交中的版本相同，请不要暂存要添加的版本 */

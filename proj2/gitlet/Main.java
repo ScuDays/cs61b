@@ -77,6 +77,12 @@ public class Main {
                 // TODO: handle the `checkout` command
                 if(args.length == 2){
 
+                    try {
+                        Checkout.checkoutBranch(args[1]);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
                else if(args.length == 3) {
                     try {

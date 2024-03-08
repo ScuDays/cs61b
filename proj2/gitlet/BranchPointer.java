@@ -70,7 +70,6 @@ public class BranchPointer extends Pointer implements Serializable {
     public static BranchPointer ReadBranchPointer(String BranchPointerName){
         File BranchPointerFile = Utils.join(InitMethod.getInit_FOLDER(), Pointer.getPointer_FOLDER_static(), BranchPointerName);
         if(BranchPointerFile.exists() == false) System.out.println("No such branch exists.");
-        // System.out.println("测试： 这里是PointerFile地址"+PointerFile);
         return Utils.readObject(BranchPointerFile, BranchPointer.class);
     }
 
@@ -83,7 +82,8 @@ public class BranchPointer extends Pointer implements Serializable {
         }
         /** 若该分支为当前分支，则中止 */
         Pointer head = Pointer.ReadPointer("head");
-        if(head.getCurrentBranchPointer() == BranchPointerName){
+       // System.out.println(head.getCurrentBranchPointer());
+        if(head.getCurrentBranchPointer().equals(BranchPointerName)){
             System.out.println("Cannot remove the current branch.");
             System.exit(0);
         }

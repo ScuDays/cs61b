@@ -28,13 +28,18 @@ public class InitMethod {
      * 初始化的文件夹
      */
     private static File Init_FOLDER;
+    private static String User_FOLDER;
 
     public static File getInit_FOLDER() {
         return Init_FOLDER;
     }
+    public static String getUser_FOLDER() {
+        return User_FOLDER;
+    }
 
     static {
         Init_FOLDER = Utils.join(System.getProperty("user.dir"), ".gitlet");
+        User_FOLDER = System.getProperty("user.dir");
     }
 
     static void Init() throws IOException {
