@@ -63,13 +63,13 @@ public class BranchPointer extends Pointer implements Serializable {
         addBranch.parentBranch = this.getPointer_Name();
         /** 把该分支单独存储出来 */
         addBranch.SerializeStore();
-//        int NodeIndex = currentNode.sonBranch.indexOf(addBranch);
-//        //System.out.println(NodeIndex);
-//        currentNode.sonBranch.get(NodeIndex).SerializeStore();
+//
     }
     public static BranchPointer ReadBranchPointer(String BranchPointerName){
         File BranchPointerFile = Utils.join(InitMethod.getInit_FOLDER(), Pointer.getPointer_FOLDER_static(), BranchPointerName);
-        if(BranchPointerFile.exists() == false) System.out.println("No such branch exists.");
+        if(BranchPointerFile.exists() == false) {
+            System.out.println("No such branch exists.");
+        System.exit(0);}
         return Utils.readObject(BranchPointerFile, BranchPointer.class);
     }
 

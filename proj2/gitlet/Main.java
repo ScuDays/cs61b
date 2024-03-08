@@ -76,7 +76,6 @@ public class Main {
             case "checkout":
                 // TODO: handle the `checkout` command
                 if(args.length == 2){
-
                     try {
                         Checkout.checkoutBranch(args[1]);
                     } catch (IOException e) {
@@ -85,6 +84,7 @@ public class Main {
 
                 }
                else if(args.length == 3) {
+
                     try {
                         Checkout.checkoutFileName(args[2]);
                     } catch (IOException e) {
@@ -92,6 +92,10 @@ public class Main {
                     }
                 }
                 else if(args.length == 4){
+                    if(args[2].equals("--") == false){
+                        System.out.print("Incorrect operands.");
+                        System.exit(0);
+                    }
                     try {
                         Checkout.checkoutCommitFileName(args[1], args[3]);
                     } catch (IOException e) {

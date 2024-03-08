@@ -69,7 +69,6 @@ public class StagingArea implements Serializable {
             System.out.println("File does not exist.");
             System.exit(0);
         }
-        //System.out.println("成功读取要存储的文件");
         /** 获取要存储文件的SHA1值 */
        /** 读取文件内容 */
         byte [] readFile = Utils.readContents(addFile);
@@ -78,11 +77,22 @@ public class StagingArea implements Serializable {
         /** 获取要存储文件的名字 */
         String BlobAbstractFileName = addFile.getName();
 
-
-
+        /** TODO 之前是同一个文件，之前rm，还没commmit，直接add，取消rm */
+        if(sta.RmMap.Map.containsKey(BlobAbstractFileName)){
+            String theSha1 = sta.RmMap.Map.get(BlobAbstractFileName);
+            if(theSha1 == null){
+                sta.RmMap.Map.remove(BlobAbstractFileName);
+                /** 把暂存区域存回去 */
+                File stafile = Utils.join(InitMethod.getInit_FOLDER(), "stagingArea");
+                Utils.writeObject(stafile, sta);
+            }
+        }
         /** 如果文件的当前工作版本与当前提交中的版本相同，请不要暂存要添加的版本 */
         if(sta.FatherMap.Map.get(BlobAbstractFileName) != null) {
-            if (sta.FatherMap.Map.get(BlobAbstractFileName).equals(BlobFileSha1Name)) System.exit(0);
+
+            if (sta.FatherMap.Map.get(BlobAbstractFileName).equals(BlobFileSha1Name)) {
+                System.exit(0);
+            }
         }
         /** 最后，添加进入 */
         sta.AddMap.Map.put(BlobAbstractFileName, BlobFileSha1Name);
