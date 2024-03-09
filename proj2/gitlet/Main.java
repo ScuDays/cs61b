@@ -45,7 +45,10 @@ public class Main {
                 break;
             case "commit":
                 // TODO: handle the `commit` command
-                Args_isValid(args.length, 2);
+                if(args.length == 1){
+                    System.out.println("Please enter a commit message.");
+                    System.exit(0);
+                }
                 String secondArg = args[1];
                 Commit.CommitMethod(secondArg);
                 break;

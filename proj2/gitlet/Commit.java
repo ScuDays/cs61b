@@ -28,7 +28,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
     /**
      * 时间
      */
-    private Date commitDate ;
+    private Date commitDate;
     /**
      * 父引用 通过名字找到父引用
      */
@@ -54,6 +54,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
     public String getCommit_FOLDER() {
         return Commit_FOLDER;
     }
+
     public static String getCommit_FOLDER_static() {
         return Commit_FOLDER;
     }
@@ -82,9 +83,10 @@ public class Commit implements Serializable, SerializeStoreFuntion {
     }
 
     /** TODO: 2024/2/27 commit 需要存储当前版本指向的哈希名文件 每次都要更新，用什么数据结构更新速度快呢?   */
-    /** 使用了Treemap来实现，Treemap在StagingArea中 */
+    /**
+     * 使用了Treemap来实现，Treemap在StagingArea中
+     */
     BlobsMap Map = new BlobsMap();
-
 
 
     /**
@@ -100,11 +102,14 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         Utils.writeObject(writeFile, this);
         return writeFileName;
     }
-    /** 实现序列化读取 */
+
+    /**
+     * 实现序列化读取
+     */
     public static Commit SerializeRead(String ReadFileName) {
         File ReadFile = Utils.join(InitMethod.getInit_FOLDER(), Commit.Commit_FOLDER, ReadFileName);
         /** 当不存在该Sha1名字的Commit时，报错并退出 */
-        if(ReadFile.exists() == false){
+        if (ReadFile.exists() == false) {
             System.out.println("No commit with that id exists.");
             System.exit(0);
         }
@@ -120,8 +125,24 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         return commitDate;
     }
 
-    /** TODO Commit方法的实现*/
+    /**
+     * TODO Commit方法的实现
+     */
     public static void CommitMethod(String message) {
+
+//        /** 如果Commit信息为空，报错*/
+//        if (message == null){
+//            System.out.println("Please enter a commit message.");
+//            System.exit(0);
+//        }
+        /** 判断暂存区是否无文件，若无则报错退出*/
+        StagingArea sta = new StagingArea();
+        BlobsMap addmap = sta.getAddMap();
+        BlobsMap rmmap = sta.getRmMap();
+        if((addmap.Map.isEmpty() == true) && (rmmap.Map.isEmpty() == true)){
+            System.out.println("No changes added to the commit.");
+            System.exit(0);
+        }
         /** 创建新commit */
         Commit theCommit = new Commit(message, new Date());
         /** 读取head的信息 */
@@ -131,7 +152,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         /** 修改commit映射 并 存储新的Commit*/
         BlobsMap BlMap = StagingArea.Combine();
         theCommit.Map = BlMap;
-        theCommit.parent = ParentSh1Name ;
+        theCommit.parent = ParentSh1Name;
         String Sha1Name = theCommit.SerializeStore();
         /** 设置并存储head */
         head.setCurrentLocation(Sha1Name);
