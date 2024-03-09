@@ -73,18 +73,19 @@ public class Pointer implements Serializable, SerializeStoreFuntion {
      * 序列化存储Pointer 并返回文件名
      */
     @Override
-    public String SerializeStore()  {
+    public String SerializeStore() {
         File writeFile = Utils.join(InitMethod.getInit_FOLDER(), this.getPointer_FOLDER(), this.Pointer_Name);
         Utils.writeObject(writeFile, this);
         return this.Pointer_Name;
     }
-    public static Pointer ReadPointer(String PointerName){
+
+    public static Pointer ReadPointer(String PointerName) {
         File PointerFile = Utils.join(InitMethod.getInit_FOLDER(), Pointer.Pointer_FOLDER, PointerName);
-        if(PointerFile.exists() == false) {
+        if (PointerFile.exists() == false) {
             System.out.println("No such branch exists.");
             System.exit(0);
         }
-       // System.out.println("测试： 这里是PointerFile地址"+PointerFile);
+        // System.out.println("测试： 这里是PointerFile地址"+PointerFile);
         return Utils.readObject(PointerFile, Pointer.class);
     }
 }

@@ -14,7 +14,7 @@ public class Main {
      * Usage: java gitlet.Main ARGS, where ARGS contains
      * <COMMAND> <OPERAND1> <OPERAND2> ...
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // TODO: what if args is empty?
         /**无输入参数时，报错并退出。*/
         if (args.length == 0) {
@@ -45,8 +45,8 @@ public class Main {
                 break;
             case "commit":
                 // TODO: handle the `commit` command
-                if(args.length == 1){
-                    System.out.println("Please enter a commit message.");
+                if (args.length == 1) {
+                    System.out.print("Please enter a commit message.");
                     System.exit(0);
                 }
                 String secondArg = args[1];
@@ -78,24 +78,22 @@ public class Main {
                 break;
             case "checkout":
                 // TODO: handle the `checkout` command
-                if(args.length == 2){
+                if (args.length == 2) {
                     try {
                         Checkout.checkoutBranch(args[1]);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
 
-                }
-               else if(args.length == 3) {
+                } else if (args.length == 3) {
 
                     try {
                         Checkout.checkoutFileName(args[2]);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                }
-                else if(args.length == 4){
-                    if(args[2].equals("--") == false){
+                } else if (args.length == 4) {
+                    if (args[2].equals("--") == false) {
                         System.out.print("Incorrect operands.");
                         System.exit(0);
                     }
@@ -104,8 +102,7 @@ public class Main {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                }
-                else System.exit(0);
+                } else System.exit(0);
                 break;
             case "branch":
                 // TODO: handle the `branch` command
@@ -126,8 +123,8 @@ public class Main {
         }
     }
 
-    public static void Args_isValid(int ActualNum, int ExpectNum){
-        if (ActualNum != ExpectNum){
+    public static void Args_isValid(int ActualNum, int ExpectNum) {
+        if (ActualNum != ExpectNum) {
             System.out.println("Incorrect operands.");
             System.exit(0);
         }

@@ -133,7 +133,7 @@ public class Checkout {
                 System.exit(0);
             }
             /** 若已跟踪，当不是指定Commit中的文件，则删除 */
-            if(theMap.Map.containsKey(fileName) == false)theFile.delete();
+            if (theMap.Map.containsKey(fileName) == false) theFile.delete();
         }
 
         /** 把指定commit的内容全部写到工作目录 */

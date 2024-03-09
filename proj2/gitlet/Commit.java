@@ -130,16 +130,11 @@ public class Commit implements Serializable, SerializeStoreFuntion {
      */
     public static void CommitMethod(String message) {
 
-//        /** 如果Commit信息为空，报错*/
-//        if (message == null){
-//            System.out.println("Please enter a commit message.");
-//            System.exit(0);
-//        }
         /** 判断暂存区是否无文件，若无则报错退出*/
         StagingArea sta = new StagingArea();
         BlobsMap addmap = sta.getAddMap();
         BlobsMap rmmap = sta.getRmMap();
-        if((addmap.Map.isEmpty() == true) && (rmmap.Map.isEmpty() == true)){
+        if ((addmap.Map.isEmpty() == true) && (rmmap.Map.isEmpty() == true)) {
             System.out.println("No changes added to the commit.");
             System.exit(0);
         }

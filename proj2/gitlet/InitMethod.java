@@ -33,6 +33,7 @@ public class InitMethod {
     public static File getInit_FOLDER() {
         return Init_FOLDER;
     }
+
     public static String getUser_FOLDER() {
         return User_FOLDER;
     }
@@ -77,9 +78,9 @@ public class InitMethod {
         Utils.writeObject(stagingAreaFile, stagingArea);
 
         /** 测试是否能够正确读取回来
-        Commit readCommit = Commit.SerializeRead(location);
-        System.out.println(readCommit.getMessage());
-            测试成功
+         Commit readCommit = Commit.SerializeRead(location);
+         System.out.println(readCommit.getMessage());
+         测试成功
          */
     }
 
