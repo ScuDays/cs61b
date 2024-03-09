@@ -1,0 +1,383 @@
+[33mcommit 9d49a74915c2b4808f13a9b2b16bdc6f9dde962b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;32mnew-branch-name[m[33m)[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Sat Mar 9 16:27:53 2024 +0800
+
+    写完了reset,reset直接复用checkout branch的代码，同时发现了checkout branch里面的错误判断的错误，未跟踪的文件同时如果会被覆盖才报错，如果不会被覆盖不用报错
+
+[33mcommit aa1f6eabc84a2ca6bd7720b46fbbf1fbea56ecc5[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Sat Mar 9 11:28:23 2024 +0800
+
+    修复Commit空message中报错格式问题
+
+[33mcommit 2715c2bb742706a4128490b18c6dd8b38c198227[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Sat Mar 9 11:20:47 2024 +0800
+
+    修复Commit中输入空message和暂存区中无文件仍Commit的问题
+
+[33mcommit 0f0589c24641b59b3f32db45be369f6387aeaf5c[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Fri Mar 8 18:18:57 2024 +0800
+
+    解决了已commit文件先rm再add后，status仍显示该文件被rm的问题
+
+[33mcommit 1c7b451f3f1773134c2359ab01e140c1f9a895cc[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Fri Mar 8 17:11:13 2024 +0800
+
+    解决checkout branch的问题，以及以后一定要用equals，千万别用==了，养成好习惯
+
+[33mcommit b6cbe1a44cafe34312ad1416b2d94c4c1e84fd1d[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Mar 6 22:11:01 2024 +0800
+
+    写完了branch方法,但是由于checkout方法未写完，无法验证branch方法的正确性
+
+[33mcommit fe46cc49311dd4f99f5cd16b39fb784cc485c833[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Mar 6 10:24:40 2024 +0800
+
+    S->s
+
+[33mcommit be384f36ca034bff4a4e63488de82c811023a2ab[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Mar 6 10:17:10 2024 +0800
+
+    Stageing->stageing
+
+[33mcommit ed86e524e398ecfcbeb8c5fcfc0919bd79662d70[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Tue Mar 5 21:30:44 2024 +0800
+
+    统一了一部分简单路径
+
+[33mcommit a57e60503fd8c077f2809d0ff176b61d50843bc1[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Tue Mar 5 21:16:44 2024 +0800
+
+    test
+
+[33mcommit 2c4cc71281deb65b321a2835f84bc64e9fb431a7[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Tue Mar 5 21:09:17 2024 +0800
+
+    测试auto上的test2
+
+[33mcommit 78daefbd05d2f3f039e315b344aca86eb5d98933[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Tue Mar 5 20:56:09 2024 +0800
+
+    路径不统一
+
+[33mcommit d0a5e9a6b75fe5e90c2e37fee64877ba96dfcdb8[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Tue Mar 5 19:54:06 2024 +0800
+
+    修复status中文件实际不存在却仍然读取的程序健壮性问题，以后必须注意
+
+[33mcommit bb96228c25f7347b38eb4065f90806667ce15326[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Mar 4 21:31:24 2024 +0800
+
+    初步完成status，其中的Branch部分还未完成
+
+[33mcommit e899da54bb0588ff7ecfc4b805afe5e92f7febec[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Mar 4 20:48:00 2024 +0800
+
+    更改抛出异常的问题
+
+[33mcommit e553bbe21b68c5c155fa28ab459af02d99f1bc06[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Mar 4 18:33:17 2024 +0800
+
+    完成checkout前两个用法
+
+[33mcommit 743a71aff77652fd6afdec9700af665f8c1a6857[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Mar 4 15:10:38 2024 +0800
+
+    添加Commit读取的保护，当给定的Sha1名的Commit不存在时，进行反应
+
+[33mcommit 68700e2c272d5bd7661de063a5da9a9e0b410794[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Mar 4 13:47:40 2024 +0800
+
+    清除.class文件
+
+[33mcommit 04cf65859ebf28b3c9fe26cea3c750d44fa194cd[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Mar 4 13:40:02 2024 +0800
+
+    完成find
+
+[33mcommit e8a77b7ccda0ec46e28061bd51f3e7253c574460[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Sun Mar 3 19:45:26 2024 +0800
+
+    修复异常抛出问题
+
+[33mcommit 9b1c68e731d0b256a32c32c54ce852157b09a423[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Sun Mar 3 19:43:37 2024 +0800
+
+    解决不能编译
+
+[33mcommit 122a8e31b51900a9176e9427380bcb644f33a483[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Sun Mar 3 18:59:37 2024 +0800
+
+    完成log命令，但其中对于Merge合并的Commit尚未进行处理，需要等到后期写完branch和Merge命令后再进行处理
+
+[33mcommit 02df128ef572eb61b104bb447d7f88b20a1d1483[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Sun Mar 3 17:51:39 2024 +0800
+
+    删除没用的AddAndRm类
+
+[33mcommit 2e6b687f089763b03adfc64ee5537b6a7ebae918[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Sat Mar 2 16:48:28 2024 +0800
+
+    完成了commit方法，初步解决了分支的方案，后续还需要细致思考
+
+[33mcommit 90cc9b271c4331b2d6c6b85c1c6538e0fec9cd3b[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Fri Mar 1 18:48:56 2024 +0800
+
+    rm和add方法完善
+
+[33mcommit b9ac61e9dfcdaacf898c61c16c010517c69390b7[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Fri Mar 1 16:30:01 2024 +0800
+
+    大致写完了rm和add方法，但未进行全面测试，并且rm方法中两种情况未暂存已跟踪和未暂存未跟踪两种情况未处理
+
+[33mcommit e5ae8d6ded35c2162d57a7c0dde3bcbf40b276f8[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Fri Mar 1 12:11:25 2024 +0800
+
+    完成暂存区域的存储和读取
+
+[33mcommit ae8f7a8b1a381f77594f3f490f6ccbf3d6fadef4[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Feb 28 20:46:08 2024 +0800
+
+    修正错误：Commit存储时候转化为字节数组类型存储。  实际上，转化为字节数组只是为了得到sha1码，序列化存储的时候正常使用Commit类型存储就行
+
+[33mcommit fc382dfb9d27b6ca9cf91d06a3f54e40841c2aa9[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Feb 28 18:42:15 2024 +0800
+
+    把存储几个类的方法写成一个接口
+
+[33mcommit 40c3b80d73ecf23634d8c09f09fefb240da3406a[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Feb 28 15:59:16 2024 +0800
+
+    完成Commit的存储，考虑把这个存储做成一个接口，因为很多类都要实现这个方法
+
+[33mcommit df5175569a5dd071f22e092d65f22a7f368d2fb4[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Tue Feb 27 23:18:59 2024 +0800
+
+    初步完成了Init，但是Commit的存储部分还是很疑惑
+
+[33mcommit bc05987866b3a055575b512ee28db4607a1c45a1[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Tue Feb 27 15:29:07 2024 +0800
+
+    Init创建文件目录成功
+
+[33mcommit 93a5f86a9833c9f96d23b43c3192716eabc6bd3b[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Tue Feb 27 15:21:51 2024 +0800
+
+    初步完成Init方法
+
+[33mcommit 77c32bcbfc6d9e8af0a3727982dd0d51b9172d9b[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Feb 26 11:07:33 2024 +0800
+
+    Fix the lab6 问题：当前工作目录的问题
+
+[33mcommit eb8d1ec29663f1851c571ced1a915f1c611598c9[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Feb 26 10:29:55 2024 +0800
+
+    删除运行文件夹
+
+[33mcommit 4946864501c3ecf3e7642bc394f0ea14ea8bb341[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Mon Feb 12 14:17:33 2024 +0800
+
+    finish lab8-Hashmap
+
+[33mcommit 59e70d8879cbb893b0cdf458175cede99ebb024a[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Feb 7 19:34:52 2024 +0800
+
+    完成lab6
+
+[33mcommit 436adc238bd8f083f1e4e9c207a3ce4300b02e3a[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Feb 7 11:04:38 2024 +0800
+
+    杂七杂八的
+
+[33mcommit ff4ad594dde34bf1aa3e074ad0fb7841b7bde328[m
+Author: ScuDays <dayss1224@gmail.com>
+Date:   Wed Feb 7 11:00:14 2024 +0800
+
+    new pull the lab6
+
+[33mcommit 13c22936995682fd90d12d634e96740ac825c5a4[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Wed Dec 6 20:40:23 2023 +0800
+
+    1
+
+[33mcommit 747aed1e25ee623197b20542e1afe502a20ad7ec[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Fri Oct 20 14:44:09 2023 +0800
+
+    换源
+
+[33mcommit a6093e745b78a3acfdc76120ff38ee1b7487700f[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Wed Oct 11 23:10:59 2023 +0800
+
+    1
+
+[33mcommit e5f1145180baa8f0df69f886ed96f8a97373e81c[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Tue Oct 10 09:48:11 2023 +0800
+
+    1
+
+[33mcommit e8b334868fa167d6177b46639f9e2cf7f8ccdd0b[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Sun Sep 17 16:43:13 2023 +0800
+
+    2023年9月17日16点42分  finish lab6
+
+[33mcommit 54ede7972ef5c3ef4b79bd8b88a9911d750d6ad2[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Wed Sep 13 19:49:08 2023 +0800
+
+    finish lab7
+
+[33mcommit 584fcfdc48fe20dd7e0753cf78a45b2fca3702e2[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Sun Sep 10 20:09:29 2023 +0800
+
+    finish the UnionFind
+
+[33mcommit 982d2ca45bf8b5afaf86e0041f05ffdcb3ab7f0e[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Thu Sep 7 23:29:21 2023 +0800
+
+    1
+
+[33mcommit 10bd367c35c2e4b140e81588a180ce11b20191f2[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Mon Sep 4 10:15:31 2023 +0800
+
+    1
+
+[33mcommit 4cdfdc968b3a7ad6cf52a4ba55bca57e7a1d665b[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Sat Sep 2 15:29:38 2023 +0800
+
+    完成ArrayDeque
+
+[33mcommit 745a031892be54590b4e015ff64f0bf75a6b32db[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Fri Sep 1 21:01:46 2023 +0800
+
+    accomplish the second version of ArrayDeque
+
+[33mcommit 8e15fdd68807c64e0dc5b7b5ce1e3c9f971b5bd1[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Thu Aug 31 19:05:58 2023 +0800
+
+    project 1 finish
+
+[33mcommit a8b0fd824227aa862a1fa491d266b9ddcf432a91[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Thu Aug 31 19:04:15 2023 +0800
+
+    project 1 finish
+
+[33mcommit 121afa4ca0d05226a8289b244aec1af35ff2fbd0[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Thu Aug 31 18:55:28 2023 +0800
+
+    完善ArrayDeque
+
+[33mcommit 5117f8079a627980812982c8611983fe26f63ab1[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Thu Aug 31 17:50:56 2023 +0800
+
+    完成project1 ArrayDeque
+
+[33mcommit 8c4bb3780b80bfb0ffa1e4efb24bc77b8aa5c7ed[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Wed Aug 30 16:57:08 2023 +0800
+
+    完成linkddeque equals Iterator
+
+[33mcommit d7023e4c84b1193e2ff05f22dc14975ebbb1a1ca[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Wed Aug 23 23:20:48 2023 +0800
+
+    完成project1 get getRecursive
+
+[33mcommit 7c5c4740b85cf3b39b6d208fd83479f27a7ca438[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Fri Aug 18 17:01:02 2023 +0800
+
+    project 1 finish
+
+[33mcommit 477dc92e45c3ce6fa3f77cad7e97c59eb0187638[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Wed Aug 9 21:03:13 2023 +0800
+
+    improve project1
+
+[33mcommit 29301ed478e05b95c544e65a9f8cca357ce88279[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Wed Aug 9 17:04:37 2023 +0800
+
+    project 1 finish
+
+[33mcommit 46c263eaf1d2eb86984b1262d0cdd55a7ae958a6[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Sat Jul 8 22:11:04 2023 +0800
+
+    取消库里面套库
+
+[33mcommit b5b0a66ab6f95dc3fad1c4eed27d802c44fa935f[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Sat Jul 8 21:44:27 2023 +0800
+
+    完成InListExercises练习，另外质数的练习不写了。
+
+[33mcommit fe548eee2cfc399de6a9f7b45feacca95f381b7d[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Sat Jul 8 16:56:17 2023 +0800
+
+    更改后的文件，重新来一遍
+
+[33mcommit 41e8e7fe2821f4ea1250dcd096ae0b16ae768c09[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Sat Jul 8 16:22:21 2023 +0800
+
+    delete all
+
+[33mcommit 2caad95b55312dbb61287e625440e133f287a9db[m
+Author: TWorstPlayer <1339653485@qq.com>
+Date:   Sun Jun 25 17:24:31 2023 +0800
+
+    1

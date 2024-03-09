@@ -126,6 +126,12 @@ public class Main {
             case "merge":
                 // TODO: handle the `merge` command
                 break;
+            default:
+                System.out.println("No command with that name exists.");
+                System.exit(0);
+
+
+
         }
     }
 

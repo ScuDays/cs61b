@@ -18,6 +18,7 @@ public class Reset {
         /** 如果当前分支不存在该Commit，自动报错*/
         Pointer head = Pointer.ReadPointer("head");
         String CurrentBranchName = head.getCurrentBranchPointer();
+        //System.out.println(CurrentBranchName);
         BranchPointer CurrentBranch = BranchPointer.ReadBranchPointer(CurrentBranchName);
         Iterator itr = CurrentBranch.NodeList.iterator();
         boolean exist = false;
@@ -30,6 +31,7 @@ public class Reset {
         }
         if(exist == false){
             System.out.println("No commit with that id exists.");
+            System.out.println("----");
             System.exit(0);
         }
         CurrentBranch.setCurrentLocation(theCommitName);
