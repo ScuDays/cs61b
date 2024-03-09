@@ -72,10 +72,10 @@ public class Checkout {
         /** 当前分支名字*/
         String CurrentBranchName = head.getCurrentBranchPointer();
         BranchPointer CurrentBranch = BranchPointer.ReadBranchPointer(CurrentBranchName);
-        if (CurrentBranchName.equals(theBranchName)) {
+      /*  if (CurrentBranchName.equals(theBranchName)) {
             System.out.println("No need to checkout the current branch.");
             System.exit(0);
-        }
+        }*/
         /** 如果不存在具有该名称的分支，则自动打印 No such branch exists.*/
         BranchPointer theBranch = BranchPointer.ReadBranchPointer(theBranchName);
 
@@ -101,7 +101,10 @@ public class Checkout {
         String theCommitName = theBranch.getCurrentLocation();
         String CurrentCommitName = head.getCurrentLocation();
         //String CurrentCommitName = CurrentBranch.getCurrentLocation();
-
+        if (CurrentBranchName.equals(theBranchName) && theCommitName.equals(CurrentCommitName)) {
+            System.out.println("No need to checkout the current branch.");
+            System.exit(0);
+        }
         Commit theCommit = Commit.SerializeRead(theCommitName);
         Commit CurrentCommit = Commit.SerializeRead(CurrentCommitName);
         /** 获取目的映射和当前映射*/
@@ -119,19 +122,19 @@ public class Checkout {
             File theFile = Utils.join(InitMethod.getUser_FOLDER(), fileName);
             byte[] byteArr = Utils.readContents(theFile);
             String theFileSha1 = Utils.sha1(byteArr);
-
-            /** 存在未跟踪文件 */
-            if (CurrentMap.Map.containsKey(theFile.getName()) == false) {
+            // TODO 要不要判断一下在theMap中的sha1是否相同，到底会不会被覆盖？
+            /** 存在未跟踪文件，同时会被覆盖 */
+            if (CurrentMap.Map.containsKey(theFile.getName()) == false && theMap.Map.containsKey(theFile.getName()) == true) {
                 System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
                 System.exit(0);
             }
-            String Sha1 = CurrentMap.Map.get(fileName);
-
-            /** 存在跟踪文件但更改未Commit */
-            if (!Sha1.equals(theFileSha1)) {
-                System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
-                System.exit(0);
-            }
+//            String Sha1 = CurrentMap.Map.get(fileName);
+//
+//            /** 存在跟踪文件但更改未Commit */
+//            if (!Sha1.equals(theFileSha1)) {
+//                System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
+//                System.exit(0);
+//            }
             /** 若已跟踪，当不是指定Commit中的文件，则删除 */
             if (theMap.Map.containsKey(fileName) == false) theFile.delete();
         }

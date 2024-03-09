@@ -1,5 +1,8 @@
 package gitlet;
 
+import java.io.IOException;
+import java.util.Iterator;
+
 public class Reset {
     /** java gitlet.Main reset [commit id] */
     /** 描述
@@ -10,4 +13,27 @@ public class Reset {
      提交ID简写：提交ID（[commit id]）可以像在checkout命令中一样被简写。
      清空暂存区：执行此命令时，暂存区（Staging Area）会被清空。
      本质：这个命令本质上是对任意提交的检出操作，同时也会改变当前分支头部的指向。 */
+    public static void resetMethod(String theCommitName) throws IOException {
+
+        /** 如果当前分支不存在该Commit，自动报错*/
+        Pointer head = Pointer.ReadPointer("head");
+        String CurrentBranchName = head.getCurrentBranchPointer();
+        BranchPointer CurrentBranch = BranchPointer.ReadBranchPointer(CurrentBranchName);
+        Iterator itr = CurrentBranch.NodeList.iterator();
+        boolean exist = false;
+        while(itr.hasNext()){
+            BranchPointer.Node a = (BranchPointer.Node) itr.next();
+            if (a.CommitSha1Name.equals(theCommitName)){
+                exist = true;
+                break;
+            }
+        }
+        if(exist == false){
+            System.out.println("No commit with that id exists.");
+            System.exit(0);
+        }
+        CurrentBranch.setCurrentLocation(theCommitName);
+        CurrentBranch.SerializeStore();
+        Checkout.checkoutBranch(CurrentBranchName);
+    }
 }

@@ -116,6 +116,12 @@ public class Main {
                 break;
             case "reset":
                 // TODO: handle the `reset` command
+                Args_isValid(args.length, 2);
+                try {
+                    Reset.resetMethod(args[1]);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "merge":
                 // TODO: handle the `merge` command

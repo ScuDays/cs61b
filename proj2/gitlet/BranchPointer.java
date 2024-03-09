@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class BranchPointer extends Pointer implements Serializable {
-    private ArrayList<Node> NodeList;
+    ArrayList<Node> NodeList;
     public String parentBranch = "master";
     //private int branchNum;
 
