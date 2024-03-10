@@ -45,7 +45,11 @@ public class Commit implements Serializable, SerializeStoreFuntion {
      * 储存的文件名
      */
     private String sha1Name;
+    private String InitiallyBranch;
 
+    public String getInitiallyBranch() {
+        return InitiallyBranch;
+    }
 
     public String getMessage() {
         return message;
@@ -140,6 +144,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         }
         /** 创建新commit */
         Commit theCommit = new Commit(message, new Date());
+
         /** 读取head的信息 */
         Pointer head = Pointer.ReadPointer("head");
         String CurrentBranch = head.getCurrentBranchPointer();
@@ -148,6 +153,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         BlobsMap BlMap = StagingArea.Combine();
         theCommit.Map = BlMap;
         theCommit.parent = ParentSh1Name;
+        theCommit.InitiallyBranch = CurrentBranch;
         String Sha1Name = theCommit.SerializeStore();
         /** 设置并存储head */
         head.setCurrentLocation(Sha1Name);

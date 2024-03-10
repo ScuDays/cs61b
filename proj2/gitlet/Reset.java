@@ -1,7 +1,9 @@
 package gitlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 public class Reset {
     /** java gitlet.Main reset [commit id] */
@@ -15,27 +17,63 @@ public class Reset {
      本质：这个命令本质上是对任意提交的检出操作，同时也会改变当前分支头部的指向。 */
     public static void resetMethod(String theCommitName) throws IOException {
 
-        /** 如果当前分支不存在该Commit，自动报错*/
+//        /** 如果当前分支不存在该Commit，自动报错*/
+//        Pointer head = Pointer.ReadPointer("head");
+//        String CurrentBranchName = head.getCurrentBranchPointer();
+//        //System.out.println(CurrentBranchName);
+//        BranchPointer CurrentBranch = BranchPointer.ReadBranchPointer(CurrentBranchName);
+//        Iterator itr = CurrentBranch.NodeList.iterator();
+//        boolean exist = false;
+//        while(itr.hasNext()){
+//            BranchPointer.Node a = (BranchPointer.Node) itr.next();
+//            if (a.CommitSha1Name.equals(theCommitName)){
+//                exist = true;
+//                break;
+//            }
+//        }
+//        if(exist == false){
+//            System.out.println("No commit with that id exists.");
+//
+//            System.exit(0);
+//        }
+//        CurrentBranch.setCurrentLocation(theCommitName);
+//        CurrentBranch.SerializeStore();
+//        Checkout.checkoutBranch(CurrentBranchName);
+
+        /** 如果不存在该Commit，自动报错*/
         Pointer head = Pointer.ReadPointer("head");
-        String CurrentBranchName = head.getCurrentBranchPointer();
-        //System.out.println(CurrentBranchName);
-        BranchPointer CurrentBranch = BranchPointer.ReadBranchPointer(CurrentBranchName);
-        Iterator itr = CurrentBranch.NodeList.iterator();
+        File Commit_Folder = Utils.join(InitMethod.getInit_FOLDER(), Commit.getCommit_FOLDER_static());
+        List<String> CommitList = Utils.plainFilenamesIn(Commit_Folder);
+        Iterator itr = CommitList.iterator();
         boolean exist = false;
         while(itr.hasNext()){
-            BranchPointer.Node a = (BranchPointer.Node) itr.next();
-            if (a.CommitSha1Name.equals(theCommitName)){
+            String a = (String)itr.next();
+            if (a.equals(theCommitName)){
                 exist = true;
                 break;
             }
         }
         if(exist == false){
             System.out.println("No commit with that id exists.");
-            System.out.println("----");
             System.exit(0);
         }
-        CurrentBranch.setCurrentLocation(theCommitName);
-        CurrentBranch.SerializeStore();
-        Checkout.checkoutBranch(CurrentBranchName);
+        Commit theCommit = Commit.SerializeRead(theCommitName);
+        /** 获得该Commit所在的分支*/
+        String theBranchName = theCommit.getInitiallyBranch();
+        BranchPointer theBranch = BranchPointer.ReadBranchPointer(theBranchName);
+
+        theBranch.setCurrentLocation(theCommitName);
+        theBranch.SerializeStore();
+
+        /**checkoutBranch中会自动更改head到指定的branch，所以不用自己更改 */
+//        head.setCurrentLocation(theCommitName);
+//        head.setCurrentBranchPointer(theBranchName);
+//        head.SerializeStore();
+
+        Checkout.checkoutBranch(theBranchName);
+
+//        CurrentBranch.setCurrentLocation(theCommitName);
+//        CurrentBranch.SerializeStore();
+//        Checkout.checkoutBranch(CurrentBranchName);
     }
 }

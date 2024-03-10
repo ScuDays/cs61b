@@ -79,7 +79,6 @@ public class Checkout {
         /** 如果不存在具有该名称的分支，则自动打印 No such branch exists.*/
         BranchPointer theBranch = BranchPointer.ReadBranchPointer(theBranchName);
 
-
         /** 如果工作文件在当前分支中未跟踪并且将被签出覆盖，
          * 打印 There is an untracked file in the way; delete it, or add and commit it first.
          * 并退出
@@ -103,6 +102,7 @@ public class Checkout {
         //String CurrentCommitName = CurrentBranch.getCurrentLocation();
         if (CurrentBranchName.equals(theBranchName) && theCommitName.equals(CurrentCommitName)) {
             System.out.println("No need to checkout the current branch.");
+            //System.out.println("abc");
             System.exit(0);
         }
         Commit theCommit = Commit.SerializeRead(theCommitName);
