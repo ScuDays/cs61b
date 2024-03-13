@@ -80,6 +80,7 @@ public class StagingArea implements Serializable {
         byte[] readFile = Utils.readContents(addFile);
         String BlobFileSha1Name = Utils.sha1(readFile);
 
+
         /** 获取要存储文件的名字 */
         String BlobAbstractFileName = addFile.getName();
 
@@ -106,7 +107,8 @@ public class StagingArea implements Serializable {
         /** 读取要add文件的内容，写入到新生成的blob中 */
         File newBlob = Utils.join(InitMethod.getInit_FOLDER(), "blobs", BlobFileSha1Name);
         newBlob.createNewFile();
-        Utils.writeContents(newBlob, readFile);
+       Utils.writeContents(newBlob, readFile);
+       // Utils.writeObject(newBlob, readFile);
 
         /** 把暂存区域存回去 */
         File stafile = Utils.join(InitMethod.getInit_FOLDER(), "stagingArea");
@@ -151,28 +153,36 @@ public class StagingArea implements Serializable {
     /**
      * 合并三个Map，并返回处理过之后的映射，Commit时要用
      */
-    public static BlobsMap Combine() {
+    public static <Set> BlobsMap Combine() {
         /** 读取暂存区文件 */
         StagingArea sta = new StagingArea();
 
-        Iterator<Map.Entry<String, String>> itr1 = sta.AddMap.Map.entrySet().iterator();
-        while (itr1.hasNext()) {
-            Map.Entry<String, String> map = itr1.next();
-            sta.FatherMap.Map.put(map.getKey(), map.getValue());
+//        Iterator<Map.Entry<String, String>> itr1 = sta.AddMap.Map.entrySet().iterator();
+//        while (itr1.hasNext()) {
+//            Map.Entry<String, String> map = itr1.next();
+//            sta.FatherMap.Map.put(map.getKey(), map.getValue());
+//        }
+//        sta.AddMap = new BlobsMap();
+        BlobsMap AddMap = sta.getAddMap();
+        for (String key : AddMap.Map.keySet()) {
+            sta.FatherMap.Map.put(key, AddMap.Map.get(key));
         }
-        sta.AddMap = new BlobsMap();
 
-        Iterator<Map.Entry<String, String>> itr2 = sta.RmMap.Map.entrySet().iterator();
-        while (itr2.hasNext()) {
-            Map.Entry<String, String> map = itr2.next();
-            sta.FatherMap.Map.remove(map.getKey(), map.getValue());
+        BlobsMap rmMap = sta.getRmMap();
+        for (String key : rmMap.Map.keySet()) {
+            sta.FatherMap.Map.remove(key);
         }
+//        while (itr2.hasNext()) {
+//            Map.Entry<String, String> map = itr2.next();
+//            sta.FatherMap.Map.remove(map.getKey(), map.getValue());
+//        }
+
+        sta.AddMap = new BlobsMap();
         sta.RmMap = new BlobsMap();
 
         /** 把暂存区域存回去 */
         File stafile = Utils.join(InitMethod.getInit_FOLDER(), "stagingArea");
         Utils.writeObject(stafile, sta);
         return sta.FatherMap;
-
     }
 }

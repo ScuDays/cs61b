@@ -126,7 +126,13 @@ public class Main {
             case "merge":
                 // TODO: handle the `merge` command
                 Args_isValid(args.length, 2);
-                MergeMethod.Merge(args[1]);
+
+                try {
+                    MergeMethod.Merge(args[1]);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 break;
             default:
                 System.out.println("No command with that name exists.");

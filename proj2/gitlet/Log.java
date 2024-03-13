@@ -2,10 +2,7 @@ package gitlet;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TimeZone;
-import java.util.Locale;
+import java.util.*;
 
 public class Log {
     /**
@@ -30,8 +27,21 @@ public class Log {
             System.out.println();
             if (theCommit.getMessage().equals("initial commit")) break;
             else Sha1Name = theCommit.getParent();
-
         }
+
+        /** TODO 测试
+         *
+         */
+//        Commit theCommit  = Commit.SerializeRead(CurrentBranchPointer.getCurrentLocation());
+//        Set theset = theCommit.Map.Map.keySet();
+//        Iterator itr1 = theset.iterator();
+//        while(itr1.hasNext()) System.out.println(itr1.next());
+//
+//        StagingArea sta = new StagingArea();
+//        Set setRm = sta.getRmMap().Map.keySet();
+//        Iterator itrRm = setRm.iterator();
+//        while(itrRm.hasNext()) System.out.println(itrRm.next());
+
     }
 
     public static void global_log() {

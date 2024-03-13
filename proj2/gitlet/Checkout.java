@@ -172,6 +172,11 @@ public class Checkout {
         /** 把暂存区域存回去 */
         File stafile = Utils.join(InitMethod.getInit_FOLDER(), "stagingArea");
         Utils.writeObject(stafile, sta);
+
+//        Set a = theCommit.Map.Map.keySet();
+//        Iterator itr1 = a.iterator();
+//        while(itr1.hasNext()) System.out.println(itr1.next());
+
     }
 
 }

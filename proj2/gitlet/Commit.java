@@ -5,6 +5,8 @@ package gitlet;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Date; // TODO: You'll likely use this in this class
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Represents a gitlet commit object.
@@ -162,6 +164,10 @@ public class Commit implements Serializable, SerializeStoreFuntion {
         BranchPointer branchPointer = BranchPointer.ReadBranchPointer(CurrentBranch);
         branchPointer.add(Sha1Name);
         branchPointer.SerializeStore();
+
+//        Set a = theCommit.Map.Map.keySet();
+//        Iterator itr1 = a.iterator();
+//        while(itr1.hasNext()) System.out.println(itr1.next());
     }
     /* TODO: fill in the rest of this class. */
 

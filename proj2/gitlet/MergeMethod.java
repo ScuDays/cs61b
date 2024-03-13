@@ -2,10 +2,11 @@ package gitlet;
 
 import javax.imageio.ImageTranscoder;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class MergeMethod {
-    public static void Merge(String theBranchName) {
+    public static void Merge(String theBranchName) throws IOException {
         /** 首先得找到最近的共同分歧Commit*/
         /** 建立一个Map，把要merge的分支加到的所有Commit加到Map里面，然后从当前分支开始一个一个往前，和Map对比，看是否在里面*/
         Set<String> BranchCommitMap = new TreeSet<>();
@@ -140,14 +141,14 @@ public class MergeMethod {
                     continue;
                 /** 变化后一个删除一个没删除*/
                 if (MasterMap.Map.get(FileName) == null && OtherMap.Map.get(FileName) != null)
-                    SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName));
+                    SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
                 if (OtherMap.Map.get(FileName) == null && MasterMap.Map.get(FileName) != null)
-                    SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName));
+                    SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
                 /** 变化后两个相同*/
                 if (OtherMap.Map.get(FileName).equals(MasterMap.Map.get(FileName))) {
                     FinalMap.Map.put(FileName, MasterMap.Map.get(FileName));
                 }
-                else SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName));
+                else SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
             }
 
             MasterMap.Map.remove(FileName);
@@ -163,7 +164,7 @@ public class MergeMethod {
                 FinalMap.Map.put(NewFileName, MasterMap.Map.get(NewFileName));
             /** Master中新增的文件，而OtherMap也新增该文件，但内容不同*/
             if (OtherMap.Map.get(NewFileName) != null && MasterMap.Map.get(NewFileName).equals(OtherMap.Map.get(NewFileName)) == false)
-                SetConflictFileAndReportError(OtherMap.Map.get(NewFileName), MasterMap.Map.get(NewFileName), OtherMap.Map.get(NewFileName));
+                SetConflictFileAndReportError(OtherMap.Map.get(NewFileName), MasterMap.Map.get(NewFileName), OtherMap.Map.get(NewFileName), NewFileName);
             /** Master中新增的文件，而OtherMap也新增该文件，且内容不同*/
             if (OtherMap.Map.get(NewFileName) != null && MasterMap.Map.get(NewFileName).equals(OtherMap.Map.get(NewFileName)) == true)
                 FinalMap.Map.put(NewFileName, MasterMap.Map.get(NewFileName));
@@ -181,17 +182,26 @@ public class MergeMethod {
 
     }
 
-    public static void SetConflictFileAndReportError(String FileSha1Name, String CurrentBranchFileSha1Name, String givenBranchFileSha1Name) {
+    public static void SetConflictFileAndReportError(String FileSha1Name, String CurrentBranchFileSha1Name, String givenBranchFileSha1Name, String FileName) throws IOException {
         String CurrentBranchContent = new String();
         String givenBranchContent = new String();
-
-        File CurrentBranchFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", CurrentBranchFileSha1Name);
-        if (CurrentBranchFileSha1Name != null) {
-            CurrentBranchContent = Utils.readContentsAsString(CurrentBranchFile);
-        }
-        File givenBranchFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", givenBranchFileSha1Name);
-        if (givenBranchFileSha1Name != null) {
+       // String FinalFileName = new String();
+        if(CurrentBranchFileSha1Name == null && givenBranchFileSha1Name != null){
+            File givenBranchFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", givenBranchFileSha1Name);
             givenBranchContent = Utils.readContentsAsString(givenBranchFile);
+            //FinalFileName = givenBranchFileSha1Name;
+        }
+        if(givenBranchFileSha1Name == null && CurrentBranchFileSha1Name != null) {
+            File CurrentBranchFile  = Utils.join(InitMethod.getInit_FOLDER(), "blobs", CurrentBranchFileSha1Name);;
+            CurrentBranchContent = Utils.readContentsAsString(CurrentBranchFile);
+            //FinalFileName = CurrentBranchFileSha1Name;
+        }
+        if(givenBranchFileSha1Name != null && CurrentBranchFileSha1Name != null){
+            File CurrentBranchFile  = Utils.join(InitMethod.getInit_FOLDER(), "blobs", CurrentBranchFileSha1Name);;
+            File givenBranchFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", givenBranchFileSha1Name);
+            CurrentBranchContent = Utils.readContentsAsString(CurrentBranchFile);
+            givenBranchContent = Utils.readContentsAsString(givenBranchFile);
+            //FinalFileName = CurrentBranchFileSha1Name;
         }
 
         String ConflictFileContent = "<<<<<<< HEAD\n" +
@@ -199,10 +209,12 @@ public class MergeMethod {
                 "=======\n" +
                 givenBranchContent + "\n" +
                 ">>>>>>>";
-        Utils.writeObject(CurrentBranchFile, ConflictFileContent);
-        Utils.writeObject(givenBranchFile, ConflictFileContent);
+//
+        File FinalFile = Utils.join(FileName);
+        Utils.writeContents(FinalFile, ConflictFileContent);
+        System.out.println(FinalFile);
         System.out.println("Encountered a merge conflict.");
-        //System.exit(0);
+
 
     }
 }

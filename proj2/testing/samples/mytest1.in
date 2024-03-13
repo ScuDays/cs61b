@@ -7,7 +7,10 @@ I setup2.inc
 <<<
 > rm g.txt
 <<<
-> commit "add h.txt and rm g.txt"
++ f.txt wug2.txt
+> add f.txt
+<<<
+> commit "Add h.txt, remove g.txt, and change f.txt"
 <<<
 > checkout other
 <<<
@@ -21,9 +24,6 @@ I setup2.inc
 <<<
 > checkout master
 <<<
-
-
-
 
 
 
