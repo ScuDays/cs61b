@@ -1,0 +1,29 @@
+# Create two branches and merge other into master with a merge conflict.
+I setup2.inc
+> branch other
+<<<
++ h.txt wug2.txt
+> add h.txt
+<<<
+> rm g.txt
+<<<
+> commit "add h.txt and rm g.txt"
+<<<
+> checkout other
+<<<
++ f.txt notwug.txt
+> add f.txt
+<<<
++ k.txt wug3.txt
+> add k.txt
+<<<
+> commit "Add k.txt and modify f.txt"
+<<<
+> checkout master
+<<<
+
+
+
+
+
+
