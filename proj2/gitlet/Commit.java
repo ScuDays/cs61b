@@ -39,6 +39,7 @@ public class Commit implements Serializable, SerializeStoreFuntion {
      * Commit 序列化存储的文件夹
      */
     private static String Commit_FOLDER = "commits";
+    private String MergeBranchParent;
     /**
      * 暂存区域——文件名与其对应的文件版本
      */
@@ -47,6 +48,39 @@ public class Commit implements Serializable, SerializeStoreFuntion {
      * 储存的文件名
      */
     private String sha1Name;
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setCommitDate(Date commitDate) {
+        this.commitDate = commitDate;
+    }
+
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
+
+    public static void setCommit_FOLDER(String commit_FOLDER) {
+        Commit_FOLDER = commit_FOLDER;
+    }
+
+    public void setActualBlobsMap(BlobsMap actualBlobsMap) {
+        ActualBlobsMap = actualBlobsMap;
+    }
+
+    public void setSha1Name(String sha1Name) {
+        this.sha1Name = sha1Name;
+    }
+
+    public void setInitiallyBranch(String initiallyBranch) {
+        InitiallyBranch = initiallyBranch;
+    }
+
+    public void setMap(BlobsMap map) {
+        Map = map;
+    }
+
     private String InitiallyBranch;
 
     public String getInitiallyBranch() {
@@ -64,7 +98,12 @@ public class Commit implements Serializable, SerializeStoreFuntion {
     public static String getCommit_FOLDER_static() {
         return Commit_FOLDER;
     }
-/**
+
+    public String getMergeBranchParent() {
+        return MergeBranchParent;
+    }
+
+    /**
  * 用法： java gitlet.Main commit [message]
  * 说明：将跟踪文件的快照保存在当前提交和暂存区域中，以便以后可以还原它们，
  * 从而创建新的提交。据说提交正在跟踪保存的文件。默认情况下，
@@ -77,6 +116,10 @@ public class Commit implements Serializable, SerializeStoreFuntion {
  * 底线：默认情况下，提交的文件内容与其父级相同。暂存添加和删除的文件是对提交的更新。
  * 当然，日期（可能还有消息）也会与父项不同。
  */
+
+    public void setMergeBranchParent(String mergeBranchParent) {
+        MergeBranchParent = mergeBranchParent;
+    }
 
     /**
      * 在构造函数中一次性把序列化的各个过程都完成

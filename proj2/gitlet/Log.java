@@ -21,6 +21,12 @@ public class Log {
             String formattedDate = sdf.format(theCommit.getCommitDate());
             System.out.println("===");
             System.out.println("commit " + Sha1Name);
+            if(theCommit.getMergeBranchParent() != null){
+                System.out.print("Merge: ");
+                System.out.print(theCommit.getParent().substring(0, 7));
+                System.out.print(" ");
+                System.out.println(theCommit.getMergeBranchParent().substring(0, 7));
+            }
             System.out.printf("Date: ");
             System.out.println(formattedDate);
             System.out.println(theCommit.getMessage());

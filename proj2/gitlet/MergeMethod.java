@@ -6,6 +6,43 @@ import java.util.*;
 
 public class MergeMethod {
     public static void Merge(String theBranchName) throws IOException {
+
+        /** 错误处理*/
+        Pointer head1 = Pointer.ReadPointer("head");
+        /** 1：给定分支是自身*/
+        if (theBranchName.equals(head1.getCurrentBranchPointer())) {
+            System.out.println("Cannot merge a branch with itself.");
+            System.exit(0);
+        }
+        /** 2：存在已暂存但未commit文件*/
+        StagingArea sta = new StagingArea();
+        if(!sta.getRmMap().Map.isEmpty()){
+            System.out.println("You have uncommitted changes.");
+            System.exit(0);
+        }
+        if(!sta.getAddMap().Map.isEmpty()){
+            System.out.println("You have uncommitted changes.");
+            System.exit(0);
+        }
+        /*if(BranchPointer.ReadBranchPointer())*/
+        /** 3：不存在给定分支，报错，笨方法*/
+        File Point_Folder = Utils.join(InitMethod.getInit_FOLDER(), BranchPointer.getPointer_FOLDER_static());
+        List PointList = Utils.plainFilenamesIn(Point_Folder);
+        if(PointList.contains(theBranchName) == false){
+            System.out.println("A branch with that name does not exist.");
+            System.exit(0);
+        }
+        // TODO
+        /** 4：存在未跟踪文件，且文件会被merge之后覆盖或者删除*/
+        File File_Folder = Utils.join(InitMethod.getUser_FOLDER());
+        List FileList= Utils.plainFilenamesIn(File_Folder);
+        Iterator FileItr = FileList.iterator();
+        while(FileItr.hasNext()){
+            String fileName = (String) FileItr.next();
+
+        }
+
+
         /** 首先得找到最近的共同分歧Commit*/
         /** 建立一个Map，把要merge的分支加到的所有Commit加到Map里面，然后从当前分支开始一个一个往前，和Map对比，看是否在里面*/
         Set<String> BranchCommitMap = new TreeSet<>();
@@ -161,7 +198,7 @@ public class MergeMethod {
              *  2：若变化不同则出问题*/
             if (OtherChange == true && MasterChange == true) {
                 /**  两个都变化后，两个相同*/
-                if (OtherMap.Map.get(FileName).equals(MasterMap.Map.get(FileName))) {
+                if (OtherMap.Map.get(FileName) == (MasterMap.Map.get(FileName))) {
                     FinalMap.Map.put(FileName, MasterMap.Map.get(FileName));
                 }
                 /** 两个都变化后，两个相同且都删除了*/
@@ -243,6 +280,29 @@ public class MergeMethod {
             Utils.writeContents(theFile, SourceArr);
         }
         if (ifConflict == true) System.out.println("Encountered a merge conflict.");
+
+        String message = "Merged " + theBranchName + " into " + CurrentBranchPointerName + ".";
+        /** 创建新commit */
+        Commit theCommit = new Commit(message, new Date());
+        /** 读取head的信息 */
+        String CurrentBranch = head.getCurrentBranchPointer();
+        String ParentSh1Name = head.getCurrentLocation();
+        /** 修改commit映射 并 存储新的Commit*/
+        BlobsMap BlMap = StagingArea.Combine();
+        theCommit.Map = BlMap;
+        theCommit.setParent(ParentSh1Name);
+        theCommit.setInitiallyBranch(CurrentBranch);
+        theCommit.setMergeBranchParent(theBranch.getCurrentLocation());
+
+        String Sha1Name = theCommit.SerializeStore();
+        /** 设置并存储head */
+        head.setCurrentLocation(Sha1Name);
+        head.SerializeStore();
+        /** 读取、设置并存储分支指针 */
+        BranchPointer branchPointer = BranchPointer.ReadBranchPointer(CurrentBranch);
+        branchPointer.add(Sha1Name);
+        branchPointer.SerializeStore();
+
     }
 
     public static void SetConflictFileAndReportError(String CurrentBranchFileSha1Name, String givenBranchFileSha1Name, String FileName) throws IOException {
@@ -272,7 +332,7 @@ public class MergeMethod {
         String ConflictFileContent = "<<<<<<< HEAD\n" +
                 CurrentBranchContent +
                 "=======\n" +
-                givenBranchContent  +
+                givenBranchContent +
                 ">>>>>>>\n";
 
 
