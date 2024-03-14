@@ -13,7 +13,7 @@ I setup2.inc
 > commit "Add h.txt, remove g.txt, and change f.txt"
 <<<
 > checkout other
-<<<
+<<< 
 + f.txt notwug.txt
 > add f.txt
 <<<

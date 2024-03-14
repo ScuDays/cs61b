@@ -1,0 +1,9 @@
+I prelude1.inc
++ f.txt wug.txt
++ g.txt wug.txt
+> add g.txt
+<<<
+> add f.txt
+<<<
+> commit "add g.txt,f.txt"
+<<<

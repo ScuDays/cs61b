@@ -114,7 +114,6 @@ public class Checkout {
         File Repository_Folder = new File(InitMethod.getUser_FOLDER());
         /** 存储库文件集合 */
         List<String> FileList = Utils.plainFilenamesIn(Repository_Folder);
-
         /** 看存储库是否存在未跟踪文件 */
         Iterator itr = FileList.iterator();
         while (itr.hasNext()) {

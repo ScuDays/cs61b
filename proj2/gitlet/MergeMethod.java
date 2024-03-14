@@ -1,6 +1,5 @@
 package gitlet;
 
-import javax.imageio.ImageTranscoder;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -93,6 +92,7 @@ public class MergeMethod {
         }
 
         /** 获取三个commit的map，根据split commit 进行处理，*/
+        // System.out.println("SPlitCommit 是" + SplitCommitName);
         // SplitCommit
         Commit SplitCommit = Commit.SerializeRead(SplitCommitName);
         BlobsMap SplitMap = SplitCommit.Map;
@@ -107,50 +107,89 @@ public class MergeMethod {
         // SplitCommit 的 KeySet ， 通过遍历KeySet来处理完SplitCommit中的内容
         Set SplitMapKeySet = SplitMap.Map.keySet();
         // 看Master和Other分支是否有变化
-        Boolean MasterChange = false;
-        Boolean OtherChange = false;
+
 
         BlobsMap FinalMap = new BlobsMap();
+        Set ConflictSet = new TreeSet();
         //遍历 SplitCommit
         Iterator itr = SplitMapKeySet.iterator();
+        boolean ifConflict = false;
         while (itr.hasNext()) {
+            Boolean MasterChange = false;
+            Boolean OtherChange = false;
             String FileName = (String) itr.next();
             String SplitSha1Name = SplitMap.Map.get(FileName);
             /** 判断Master中是否有变化，若与Split中不同，则MasterChange设为true*/
-            if (!SplitSha1Name.equals(MasterMap.Map.get(FileName))) MasterChange = true;
-            if (!SplitSha1Name.equals(OtherMap.Map.get(FileName))) OtherChange = true;
+            if ((SplitSha1Name.equals(MasterMap.Map.get(FileName))) == false) {
+                MasterChange = true;
+            }
+            if ((SplitSha1Name.equals(OtherMap.Map.get(FileName))) == false) {
+                OtherChange = true;
+            }
+
+//            System.out.println(FileName);
+//            System.out.println("SplitSha1Name:" +SplitSha1Name + "   MasterMap:"+MasterMap.Map.get(FileName));
+//            System.out.println("SplitSha1Name:" +SplitSha1Name + "   OtherMap:"+OtherMap.Map.get(FileName));
+//            System.out.println("-----------------------------");
+//            if(MasterChange == true && OtherChange == true) System.out.println(FileName + "都改变了");
             /** 开始判断*/
             /** 若两者都没变*/
             if (MasterChange == OtherChange && MasterChange == false && OtherChange == false)
                 FinalMap.Map.put(FileName, SplitSha1Name);
-            /** 若Master变了而Other没变，则内容根据Master改变，同时主要Master中的改变是删除了还是改变了*/
+
+
+            /** 变了其中一个*/
+
+            /** 若Master变了而Other没变，则内容根据Master改变。 两种情况，Master删除了，Master没删除*/
             if (MasterChange == true && OtherChange == false) {
                 if (MasterMap.Map.get(FileName) != null) FinalMap.Map.put(FileName, MasterMap.Map.get(FileName));
+//                else {
+//                    RmSet.add(FileName);
+//                }
             }
-            /** 若Other变了Master没变同理*/
+            /** 若Other变了而Master没变，则内容根据Other改变。 两种情况，Other删除了，Other没删除*/
             if (OtherChange == true && MasterChange == false) {
                 if (OtherMap.Map.get(FileName) != null) FinalMap.Map.put(FileName, OtherMap.Map.get(FileName));
+//                else {
+//                    RmSet.add(FileName);
+//                }
             }
+
+            /** 两个都变了*/
             /** 若Master 和 Other都变了
              *  1：看是否变化相同
              *  2：若变化不同则出问题*/
-            /** 两个都变了*/
             if (OtherChange == true && MasterChange == true) {
-                /** 变化后两个相同且都删除了*/
-                if (MasterMap.Map.get(FileName) == OtherMap.Map.get(FileName) && MasterMap.Map.get(FileName) == null)
-                    continue;
-                /** 变化后一个删除一个没删除*/
-                if (MasterMap.Map.get(FileName) == null && OtherMap.Map.get(FileName) != null)
-                    SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
-                if (OtherMap.Map.get(FileName) == null && MasterMap.Map.get(FileName) != null)
-                    SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
-                /** 变化后两个相同*/
+                /**  两个都变化后，两个相同*/
                 if (OtherMap.Map.get(FileName).equals(MasterMap.Map.get(FileName))) {
                     FinalMap.Map.put(FileName, MasterMap.Map.get(FileName));
                 }
-                else SetConflictFileAndReportError(SplitSha1Name, MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
-            }
+                /** 两个都变化后，两个相同且都删除了*/
+//                if (MasterMap.Map.get(FileName) == OtherMap.Map.get(FileName) && MasterMap.Map.get(FileName) == null) {
+//                    RmSet.add(FileName);
+//                }
 
+                /** 两个都变化后，一个删除一个没删除*/
+                if (MasterMap.Map.get(FileName) == null && OtherMap.Map.get(FileName) != null) {
+                    ifConflict = true;
+                    ConflictSet.add(FileName);
+                    SetConflictFileAndReportError(MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
+                }
+                /** 两个都变化后，一个删除一个没删除*/
+                if (OtherMap.Map.get(FileName) == null && MasterMap.Map.get(FileName) != null) {
+                    ifConflict = true;
+                    ConflictSet.add(FileName);
+                    SetConflictFileAndReportError(MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
+                }
+                //FinalMap.Map.put(FileName, MasterMap.Map.get(FileName));
+
+                /**  两个都变化后，两个都不相同*/
+                if (OtherMap.Map.get(FileName) != MasterMap.Map.get(FileName)) {
+                    ifConflict = true;
+                    ConflictSet.add(FileName);
+                    SetConflictFileAndReportError(MasterMap.Map.get(FileName), OtherMap.Map.get(FileName), FileName);
+                }
+            }
             MasterMap.Map.remove(FileName);
             OtherMap.Map.remove(FileName);
         }
@@ -163,11 +202,16 @@ public class MergeMethod {
             if (OtherMap.Map.get(NewFileName) == null)
                 FinalMap.Map.put(NewFileName, MasterMap.Map.get(NewFileName));
             /** Master中新增的文件，而OtherMap也新增该文件，但内容不同*/
-            if (OtherMap.Map.get(NewFileName) != null && MasterMap.Map.get(NewFileName).equals(OtherMap.Map.get(NewFileName)) == false)
-                SetConflictFileAndReportError(OtherMap.Map.get(NewFileName), MasterMap.Map.get(NewFileName), OtherMap.Map.get(NewFileName), NewFileName);
-            /** Master中新增的文件，而OtherMap也新增该文件，且内容不同*/
+            if (OtherMap.Map.get(NewFileName) != null && MasterMap.Map.get(NewFileName).equals(OtherMap.Map.get(NewFileName)) == false) {
+                ifConflict = true;
+                ConflictSet.add(NewFileName);
+                SetConflictFileAndReportError(MasterMap.Map.get(NewFileName), OtherMap.Map.get(NewFileName), NewFileName);
+            }
+
+            /** Master中新增的文件，而OtherMap也新增该文件，且内容相同*/
             if (OtherMap.Map.get(NewFileName) != null && MasterMap.Map.get(NewFileName).equals(OtherMap.Map.get(NewFileName)) == true)
                 FinalMap.Map.put(NewFileName, MasterMap.Map.get(NewFileName));
+
             OtherMap.Map.remove(NewFileName);
         }
         /** 遍历处理完SplitCommit中的，再处理完MasterCommit中和OtherCommit中不同的，处理OtherCommit独有的*/
@@ -177,27 +221,48 @@ public class MergeMethod {
             String OtherNewFile = (String) OtherItr.next();
             FinalMap.Map.put(OtherNewFile, OtherMap.Map.get(OtherNewFile));
         }
-        /** 三次处理后，FinalMap中的就是最后内容*/
-        // System.out.println(SplitCommitName);
 
+        /** 三次处理后，FinalMap中的就是最后内容*/
+        File File_Folder = Utils.join(InitMethod.getUser_FOLDER());
+        List FileList = Utils.plainFilenamesIn(File_Folder);
+        Iterator FileListItr = FileList.listIterator();
+        while (FileListItr.hasNext()) {
+            String theFileName = (String) FileListItr.next();
+            File theFile = Utils.join(InitMethod.getUser_FOLDER(), theFileName);
+            if (FinalMap.Map.containsKey(theFileName) == true || ConflictSet.contains(theFileName) == true) {
+                continue;
+            } else theFile.delete();
+        }
+        Set FinalSet = FinalMap.Map.keySet();
+        Iterator FinalItr = FinalSet.iterator();
+        while (FinalItr.hasNext()) {
+            String theFileName = (String) FinalItr.next();
+            File SourceFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", FinalMap.Map.get(theFileName));
+            File theFile = Utils.join(InitMethod.getUser_FOLDER(), theFileName);
+            byte[] SourceArr = Utils.readContents(SourceFile);
+            Utils.writeContents(theFile, SourceArr);
+        }
+        if (ifConflict == true) System.out.println("Encountered a merge conflict.");
     }
 
-    public static void SetConflictFileAndReportError(String FileSha1Name, String CurrentBranchFileSha1Name, String givenBranchFileSha1Name, String FileName) throws IOException {
+    public static void SetConflictFileAndReportError(String CurrentBranchFileSha1Name, String givenBranchFileSha1Name, String FileName) throws IOException {
         String CurrentBranchContent = new String();
         String givenBranchContent = new String();
-       // String FinalFileName = new String();
-        if(CurrentBranchFileSha1Name == null && givenBranchFileSha1Name != null){
+        // String FinalFileName = new String();
+        if (CurrentBranchFileSha1Name == null && givenBranchFileSha1Name != null) {
             File givenBranchFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", givenBranchFileSha1Name);
             givenBranchContent = Utils.readContentsAsString(givenBranchFile);
             //FinalFileName = givenBranchFileSha1Name;
         }
-        if(givenBranchFileSha1Name == null && CurrentBranchFileSha1Name != null) {
-            File CurrentBranchFile  = Utils.join(InitMethod.getInit_FOLDER(), "blobs", CurrentBranchFileSha1Name);;
+        if (givenBranchFileSha1Name == null && CurrentBranchFileSha1Name != null) {
+            File CurrentBranchFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", CurrentBranchFileSha1Name);
+            ;
             CurrentBranchContent = Utils.readContentsAsString(CurrentBranchFile);
             //FinalFileName = CurrentBranchFileSha1Name;
         }
-        if(givenBranchFileSha1Name != null && CurrentBranchFileSha1Name != null){
-            File CurrentBranchFile  = Utils.join(InitMethod.getInit_FOLDER(), "blobs", CurrentBranchFileSha1Name);;
+        if (givenBranchFileSha1Name != null && CurrentBranchFileSha1Name != null) {
+            File CurrentBranchFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", CurrentBranchFileSha1Name);
+            ;
             File givenBranchFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", givenBranchFileSha1Name);
             CurrentBranchContent = Utils.readContentsAsString(CurrentBranchFile);
             givenBranchContent = Utils.readContentsAsString(givenBranchFile);
@@ -205,16 +270,18 @@ public class MergeMethod {
         }
 
         String ConflictFileContent = "<<<<<<< HEAD\n" +
-                CurrentBranchContent + "\n" +
+                CurrentBranchContent +
                 "=======\n" +
-                givenBranchContent + "\n" +
-                ">>>>>>>";
-//
-        File FinalFile = Utils.join(FileName);
-        Utils.writeContents(FinalFile, ConflictFileContent);
-        System.out.println(FinalFile);
-        System.out.println("Encountered a merge conflict.");
+                givenBranchContent  +
+                ">>>>>>>\n";
 
+
+        File FinalFile = Utils.join(FileName);
+        if (FinalFile.exists() == false) FinalFile.createNewFile();
+        Utils.writeContents(FinalFile, ConflictFileContent);
+//        System.out.println(FinalFile + "这里是Conflict处理");
+//
+//        System.out.println("Encountered a merge conflict.");
 
     }
 }
