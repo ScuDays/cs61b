@@ -32,14 +32,32 @@ public class MergeMethod {
             System.out.println("A branch with that name does not exist.");
             System.exit(0);
         }
-        // TODO
+//        // TODO
         /** 4：存在未跟踪文件，且文件会被merge之后覆盖或者删除*/
-        File File_Folder = Utils.join(InitMethod.getUser_FOLDER());
-        List FileList= Utils.plainFilenamesIn(File_Folder);
-        Iterator FileItr = FileList.iterator();
+        File File_Folder1 = Utils.join(InitMethod.getUser_FOLDER());
+        List FileList1 = Utils.plainFilenamesIn(File_Folder1);
+        Iterator FileItr = FileList1.iterator();
+        Commit CurrentCommit1 = Commit.SerializeRead(head1.getCurrentLocation());
+         BlobsMap CurrentCommit1Map = CurrentCommit1.Map;
+
+        BranchPointer otherBranch = BranchPointer.ReadBranchPointer(theBranchName);
+        Commit otherCommit = Commit.SerializeRead(otherBranch.getCurrentLocation());
+        BlobsMap otherCommitMap = otherCommit.Map;
         while(FileItr.hasNext()){
             String fileName = (String) FileItr.next();
-
+            File theFile = Utils.join(InitMethod.getUser_FOLDER(), fileName);
+            byte [] arr = Utils.readContents(theFile);
+            String theFileSHA1Name = Utils.sha1(arr);
+            if(CurrentCommit1Map.Map.containsKey(fileName)){
+                if(theFileSHA1Name.equals(CurrentCommit1Map.Map.get(fileName)))
+                    continue;
+            }
+            if(otherCommitMap.Map.containsKey(fileName)){
+                if(theFileSHA1Name.equals(otherCommitMap.Map.get(fileName)))
+                    continue;
+            }
+            System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
+            System.exit(0);
         }
 
 

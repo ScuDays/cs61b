@@ -28,7 +28,6 @@ I prelude1.inc
 > commit "g.txt added, f.txt removed"
 <<<
 = g.txt notwug.txt
-* f.txt
 * h.txt
 > checkout B1
 <<<
