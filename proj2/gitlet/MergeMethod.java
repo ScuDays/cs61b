@@ -44,22 +44,22 @@ public class MergeMethod {
         BranchPointer otherBranch = BranchPointer.ReadBranchPointer(theBranchName);
         Commit otherCommit = Commit.SerializeRead(otherBranch.getCurrentLocation());
         BlobsMap otherCommitMap = otherCommit.Map;
-        while(FileItr.hasNext()){
-            String fileName = (String) FileItr.next();
-            File theFile = Utils.join(InitMethod.getUser_FOLDER(), fileName);
-            byte [] arr = Utils.readContents(theFile);
-            String theFileSHA1Name = Utils.sha1(arr);
-            if(CurrentCommit1Map.Map.containsKey(fileName)){
-                if(theFileSHA1Name.equals(CurrentCommit1Map.Map.get(fileName)))
-                    continue;
-            }
-            if(otherCommitMap.Map.containsKey(fileName)){
-                if(theFileSHA1Name.equals(otherCommitMap.Map.get(fileName)))
-                    continue;
-            }
-            System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
-            System.exit(0);
-        }
+//        while(FileItr.hasNext()){
+//            String fileName = (String) FileItr.next();
+//            File theFile = Utils.join(InitMethod.getUser_FOLDER(), fileName);
+//            byte [] arr = Utils.readContents(theFile);
+//            String theFileSHA1Name = Utils.sha1(arr);
+//            if(CurrentCommit1Map.Map.containsKey(fileName)){
+//                if(theFileSHA1Name.equals(CurrentCommit1Map.Map.get(fileName)))
+//                    continue;
+//            }
+//            if(otherCommitMap.Map.containsKey(fileName)){
+//                if(theFileSHA1Name.equals(otherCommitMap.Map.get(fileName)))
+//                    continue;
+//            }
+//            System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
+//            System.exit(0);
+//        }
 
 
         /** 首先得找到最近的共同分歧Commit*/

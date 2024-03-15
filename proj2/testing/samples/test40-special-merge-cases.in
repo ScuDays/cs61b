@@ -19,4 +19,7 @@ Given branch is an ancestor of the current branch.
 > checkout b2
 <<<
 = f.txt wug.txt
-
+> merge master
+Current branch fast-forwarded.
+<<<
+* f.txt
