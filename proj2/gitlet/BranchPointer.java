@@ -20,6 +20,10 @@ public class BranchPointer extends Pointer implements Serializable {
         this.NodeList.add(new Node(CurrentLocation));
     }
 
+    public BranchPointer() {
+
+    }
+
     public void add(String CommitSha1Name) {
         this.NodeList.add(new Node(CommitSha1Name));
         this.setCurrentLocation(CommitSha1Name);
@@ -111,6 +115,11 @@ public class BranchPointer extends Pointer implements Serializable {
             }
         }
         if (BranchPointerFile.exists()) BranchPointerFile.delete();
+    }
+    public String SerializeStore() {
+        File writeFile = Utils.join(InitMethod.getInit_FOLDER(), this.getPointer_FOLDER(), this.getPointer_Name());
+        Utils.writeObject(writeFile, this);
+        return this.getPointer_Name();
     }
 
     public class Node implements Serializable {

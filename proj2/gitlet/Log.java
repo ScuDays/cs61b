@@ -35,13 +35,18 @@ public class Log {
             else Sha1Name = theCommit.getParent();
         }
 
-        /** TODO 测试
-         *
-         */
-//        Commit theCommit  = Commit.SerializeRead(CurrentBranchPointer.getCurrentLocation());
+//        /** TODO 测试
+//         *
+//         */
+//        Commit theCommit  = Commit.SerializeRead(head.getCurrentLocation());
 //        Set theset = theCommit.Map.Map.keySet();
 //        Iterator itr1 = theset.iterator();
-//        while(itr1.hasNext()) System.out.println(itr1.next());
+//        System.out.println(CurrentBranchPointer.getCurrentLocation());
+//        System.out.println("----------------");
+//        while(itr1.hasNext()){
+//            String a = (String) itr1.next();
+//            System.out.println(a);
+//        }
 //
 //        StagingArea sta = new StagingArea();
 //        Set setRm = sta.getRmMap().Map.keySet();

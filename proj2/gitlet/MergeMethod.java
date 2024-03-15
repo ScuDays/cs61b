@@ -40,6 +40,7 @@ public class MergeMethod {
         Commit CurrentCommit1 = Commit.SerializeRead(head1.getCurrentLocation());
          BlobsMap CurrentCommit1Map = CurrentCommit1.Map;
 
+//        System.out.println(theBranchName);
         BranchPointer otherBranch = BranchPointer.ReadBranchPointer(theBranchName);
         Commit otherCommit = Commit.SerializeRead(otherBranch.getCurrentLocation());
         BlobsMap otherCommitMap = otherCommit.Map;
@@ -144,6 +145,7 @@ public class MergeMethod {
             head.setCurrentLocation(theBranch.getCurrentLocation());
             head.setPointer_Name(theBranchName);
             head.SerializeStore();
+            Checkout.checkoutBranch(theBranchName);
         }
 
         /** 获取三个commit的map，根据split commit 进行处理，*/
@@ -155,7 +157,10 @@ public class MergeMethod {
         Commit MasterCommit = Commit.SerializeRead(head.getCurrentLocation());
         BlobsMap MasterMap = MasterCommit.Map;
         //指定分支Commit
+
+
         BranchPointer other = BranchPointer.ReadBranchPointer(theBranchName);
+
         Commit OtherCommit = Commit.SerializeRead(other.getCurrentLocation());
         BlobsMap OtherMap = OtherCommit.Map;
 
@@ -288,10 +293,13 @@ public class MergeMethod {
                 continue;
             } else theFile.delete();
         }
+
         Set FinalSet = FinalMap.Map.keySet();
         Iterator FinalItr = FinalSet.iterator();
         while (FinalItr.hasNext()) {
             String theFileName = (String) FinalItr.next();
+            //System.out.println(theFileName);
+            if(FinalMap.Map.get(theFileName) == null)continue;
             File SourceFile = Utils.join(InitMethod.getInit_FOLDER(), "blobs", FinalMap.Map.get(theFileName));
             File theFile = Utils.join(InitMethod.getUser_FOLDER(), theFileName);
             byte[] SourceArr = Utils.readContents(SourceFile);

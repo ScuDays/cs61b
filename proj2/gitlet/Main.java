@@ -15,11 +15,24 @@ public class Main {
      * <COMMAND> <OPERAND1> <OPERAND2> ...
      */
     public static void main(String[] args) {
+
+
         // TODO: what if args is empty?
         /**无输入参数时，报错并退出。*/
         if (args.length == 0) {
             System.out.println("Please enter a command.");
             System.exit(0);
+        }
+        File Repository = Utils.join(System.getProperty("user.dir"), ".gitlet");
+
+        if (Repository.exists() == false) {
+            if (args.length == 1 && "init".equals(args[0])){
+
+            }
+            else {
+                System.out.println("Not in an initialized Gitlet directory.");
+                System.exit(0);
+            }
         }
         String firstArg = args[0];
         // TODO: 命令的操作数编号或格式错误怎么处理？

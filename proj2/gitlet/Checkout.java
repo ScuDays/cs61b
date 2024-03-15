@@ -41,10 +41,22 @@ public class Checkout {
     }
 
     public static void checkoutCommitFileName(String CommitSha1Name, String FileName) throws IOException {
+        File Blobs_Folder = Utils.join(InitMethod.getInit_FOLDER(), Commit.getCommit_FOLDER_static());
+        List BlobsList= Utils.plainFilenamesIn(Blobs_Folder);
+        Iterator BlobsListItr = BlobsList.listIterator();
+        while(BlobsListItr.hasNext()){
+            String BlobsName = (String) BlobsListItr.next();
+            if(BlobsName.startsWith(CommitSha1Name)){
+                CommitSha1Name = BlobsName;
+                break;
+            }
+
+        }
+
         /** 如果读取失败，自动报错 */
         Commit theCommit = Commit.SerializeRead(CommitSha1Name);
-
         BlobsMap theMap = theCommit.Map;
+
         /** 如果对应提交中不存在该文件，报错 */
         if (theMap.Map.containsKey(FileName) == false) {
             System.out.println("File does not exist in that commit.");
